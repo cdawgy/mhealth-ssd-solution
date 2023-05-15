@@ -1,0 +1,8 @@
+.googleLoginButton {
+  width: 100% !important;
+  border-radius: 10px !important;
+  box-shadow: rgb(0 0 0 / 16%) 0px 0px 13px 4px !important;
+  margin: auto !important;
+  font-size: 20px !important;
+  font-family: "Open Sans" !important;
+}

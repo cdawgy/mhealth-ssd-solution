@@ -1,0 +1,47 @@
+.colouredBackground {
+  background-color: #2e6a74;
+  height: 80%;
+  display: flex;
+}
+
+.loginOptions {
+  position: relative;
+  display: flex;
+  height: 20%;
+  padding: 0 20px;
+}
+
+.curve {
+  position: absolute;
+}
+
+.left {
+  left: 0;
+  top: -63px;
+}
+
+.right {
+  right: 0;
+  top: -1px;
+}
+
+/* Animations */
+
+@keyframes float {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(-3deg);
+  }
+  50% {
+    transform: rotate(3deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+#appTitle {
+  animation: float 6s ease-in-out infinite;
+}
