@@ -9,7 +9,7 @@ function App() {
   useEffect(() => {
     function start() {
       gapi.client.init({
-        clientId: process.env.CLIENT_ID,
+        clientId: process.env.REACT_APP_AUTH_CLIENT_ID,
         scope: "",
       });
     }

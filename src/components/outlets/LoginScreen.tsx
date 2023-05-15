@@ -16,13 +16,14 @@ const LoginScreen = () => {
     >
       <div className="colouredBackground">
         <h1 id="appTitle">
-          <img src={logoAccents} />
-          Fluency
+          <img alt="logo accents" src={logoAccents} />
+
+          {process.env.REACT_APP_AUTH_CLIENT_ID}
         </h1>
       </div>
       <div className="loginOptions">
-        <img className="curve left" src={curveLeft} />
-        <img className="curve right" src={curveRight} />
+        <img alt="leftCurve" className="curve left" src={curveLeft} />
+        <img alt="rightCurve" className="curve right" src={curveRight} />
         <Login />
       </div>
     </motion.div>

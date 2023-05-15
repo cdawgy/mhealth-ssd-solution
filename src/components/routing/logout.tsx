@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LOGIN_TOKEN } from "../../constants/LocalStorageConstants";
 
 const clientId =
-  process.env.CLIENT_ID != undefined ? process.env.CLIENT_ID : "No ID found";
+  process.env.REACT_APP_AUTH_CLIENT_ID !== undefined ? process.env.REACT_APP_AUTH_CLIENT_ID : "No ID found";
 
 function Logout() {
   const navigate = useNavigate();

@@ -5,5 +5,5 @@ export const localStorageStore = (key: string, value: any): void => {
 
 export const localStorageGet = (key: string): any => {
   const localItem = localStorage.getItem(key);
-  return localItem != null ? JSON.parse(localItem) : undefined;
+  return localItem !== null ? JSON.parse(localItem) : undefined;
 };

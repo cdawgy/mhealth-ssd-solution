@@ -5,7 +5,7 @@ import { localStorageGet } from "./LocalStorageUtils";
 
 export const isUserLoggedIn = (): boolean => {
   const tokenObject: GoogleAuthToken = localStorageGet(LOGIN_TOKEN);
-  if (tokenObject == undefined) {
+  if (tokenObject === undefined || tokenObject === null) {
     return false;
   }
 
