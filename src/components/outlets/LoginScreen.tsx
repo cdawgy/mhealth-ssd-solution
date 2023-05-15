@@ -17,8 +17,7 @@ const LoginScreen = () => {
       <div className="colouredBackground">
         <h1 id="appTitle">
           <img alt="logo accents" src={logoAccents} />
-
-          {process.env.REACT_APP_AUTH_CLIENT_ID}
+          Fluency
         </h1>
       </div>
       <div className="loginOptions">
