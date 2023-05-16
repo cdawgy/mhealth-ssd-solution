@@ -8,8 +8,9 @@ const CreateAccount = () => {
 
   const setAccountAccessLevel = (clickEventObject: any) => {
     // const userSelectedOption: string = clickEventObject.target.innerHTML;
-    // TODO: Here I will need to persist new record containing 
+    // TODO: Here I will need to persist new record containing
     // the users google ID along with their selected choice.
+    localStorageStore(ACCOUNT_TYPE, clickEventObject.target.innerHTML);
     navigate("/appMainMenu");
   };
 

@@ -12,28 +12,20 @@ import {
   ACCOUNT_ID,
   ACCOUNT_TYPE,
 } from "../../constants/LocalStorageConstants";
+import NavigationBar from "../navigation/Navbar";
 
 const AppMainMenu = () => {
   const navigation = useNavigate();
-
-  const retrieveAccountTypeAndSaveInLocalMemory = async () => {
-    const accountId: string = localStorageGet(ACCOUNT_ID);
-    const resp: AxiosResponse = await axios.get(
-      `http://localhost:8080/account/${accountId}/type`
-    );
-    localStorageStore(ACCOUNT_TYPE, resp.data);
-  };
 
   useEffect(() => {
     (async () => {
       if (!isUserLoggedIn()) {
         navigation("/");
       }
-      await retrieveAccountTypeAndSaveInLocalMemory();
-      console.log(localStorageGet(ACCOUNT_TYPE));
-      
     })();
   });
+
+  const accountType: string = localStorageGet(ACCOUNT_TYPE);
 
   return (
     <motion.div
@@ -41,7 +33,9 @@ const AppMainMenu = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
+      <NavigationBar />
       <h1>Successful Login</h1>
+      <p>Account Type: {accountType}</p>
       <Logout />
     </motion.div>
   );
