@@ -15,3 +15,7 @@ export const isUserLoggedIn = (): boolean => {
 
   return true;
 };
+
+export const isActiveAccount = (accountLevel: string) => {
+  return accountLevel.toLocaleLowerCase() !== "nonactive";
+};

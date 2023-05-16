@@ -1,10 +1,14 @@
 h1 {
     font-family: "Darumadrop One";
-    color: #ffffff;
+    color: #2E6A74;
     font-size: 64px;
     margin: auto;
     padding: 0;
     transform: rotate(-2deg);
+}
+
+.font-white {
+    color: #ffffff;
 }
 
 .screenWrapper {
