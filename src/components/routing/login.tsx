@@ -1,6 +1,6 @@
 import GoogleLogin from "react-google-login";
 import { localStorageStore } from "../../utils/LocalStorageUtils";
-import { LOGIN_TOKEN } from "../../constants/LocalStorageConstants";
+import { ACCOUNT_META_DATA, LOGIN_TOKEN } from "../../constants/LocalStorageConstants";
 import { useNavigate } from "react-router-dom";
 import "../../css/components/routing/login.css";
 import { determineLoginRedirect } from "../../utils/NavigationUtils";
@@ -15,6 +15,8 @@ function Login() {
 
   const onSuccess = async (res: any) => {
     localStorageStore(LOGIN_TOKEN, res.tokenObj);
+    localStorageStore(ACCOUNT_META_DATA, res.profileObj);
+    
     const accountId: string = res.googleId;
     const redirectPath:string = await determineLoginRedirect(accountId);
     navigate(redirectPath);

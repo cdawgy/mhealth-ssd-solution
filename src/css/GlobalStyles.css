@@ -12,7 +12,7 @@ h1 {
 }
 
 .box-shadow {
-  box-shadow: rgb(0 0 0 / 16%) 0px 0px 13px 4px !important;
+  box-shadow: rgba(119, 119, 119, 0.16) 0px 0px 5px 4px !important;
 }
 
 .font-white {
@@ -22,5 +22,12 @@ h1 {
 .screenWrapper {
   height: 100vh;
   position: relative;
+}
+
+.guttering {
   padding: 0 20px;
+}
+
+.font-tilt {
+  transform: rotate(-2deg);
 }

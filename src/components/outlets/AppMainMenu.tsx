@@ -3,16 +3,11 @@ import Logout from "../routing/logout";
 import { isUserLoggedIn } from "../../utils/LoginValidationUtils";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import axios, { AxiosResponse } from "axios";
-import {
-  localStorageGet,
-  localStorageStore,
-} from "../../utils/LocalStorageUtils";
-import {
-  ACCOUNT_ID,
-  ACCOUNT_TYPE,
-} from "../../constants/LocalStorageConstants";
+import { localStorageGet } from "../../utils/LocalStorageUtils";
+import { ACCOUNT_TYPE } from "../../constants/LocalStorageConstants";
 import NavigationBar from "../navigation/Navbar";
+import WelcomeMessage from "../mainMenu/WelcomeMessage";
+import AccountTypeMenu from "../mainMenu/AccountTypeMenu";
 
 const AppMainMenu = () => {
   const navigation = useNavigate();
@@ -34,9 +29,10 @@ const AppMainMenu = () => {
       exit={{ opacity: 0 }}
     >
       <NavigationBar />
-      <h1>Successful Login</h1>
-      <p>Account Type: {accountType}</p>
-      <Logout />
+      <div className="guttering">
+        <WelcomeMessage />
+        <AccountTypeMenu />
+      </div>
     </motion.div>
   );
 };
