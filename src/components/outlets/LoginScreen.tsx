@@ -15,7 +15,7 @@ const LoginScreen = () => {
       exit={{ opacity: 0 }}
     >
       <div className="colouredBackground">
-        <h1 id="appTitle">
+        <h1 id="appTitle" className="font-white">
           <img alt="logo accents" src={logoAccents} />
           Fluency
         </h1>

@@ -1,0 +1,24 @@
+.userOptionContainer {
+  border-radius: 10px;
+  display: block;
+  padding: 10px 20px;
+  margin-top: 50px;
+}
+
+.parentContainer > h2 {
+  transform: rotate(-3deg);
+  color: #9d877a;
+  font-size: 48px;
+}
+
+.childContainer > h2 {
+  transform: rotate(3deg);
+  color: #3dc7f4;
+  font-size: 48px;
+}
+
+.speechBubbles {
+  position: absolute;
+  bottom: 30px;
+  right: 20px;
+}

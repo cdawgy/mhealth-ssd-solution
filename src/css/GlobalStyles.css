@@ -1,12 +1,33 @@
 h1 {
-    font-family: "Darumadrop One";
-    color: #ffffff;
-    font-size: 64px;
-    margin: auto;
-    padding: 0;
-    transform: rotate(-2deg);
+  font-family: "Darumadrop One";
+  color: #2e6a74;
+  font-size: 64px !important;
+  margin: auto;
+  padding: 0;
+  transform: rotate(-2deg);
+}
+
+.title-font {
+  font-family: "Darumadrop One";
+}
+
+.box-shadow {
+  box-shadow: rgba(119, 119, 119, 0.16) 0px 0px 5px 4px !important;
+}
+
+.font-white {
+  color: #ffffff;
 }
 
 .screenWrapper {
-    height: 100vh;
+  height: 100vh;
+  position: relative;
+}
+
+.guttering {
+  padding: 0 20px;
+}
+
+.font-tilt {
+  transform: rotate(-2deg);
 }

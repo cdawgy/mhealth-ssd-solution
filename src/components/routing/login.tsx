@@ -1,18 +1,25 @@
 import GoogleLogin from "react-google-login";
 import { localStorageStore } from "../../utils/LocalStorageUtils";
-import { LOGIN_TOKEN } from "../../constants/LocalStorageConstants";
+import { ACCOUNT_META_DATA, LOGIN_TOKEN } from "../../constants/LocalStorageConstants";
 import { useNavigate } from "react-router-dom";
 import "../../css/components/routing/login.css";
+import { determineLoginRedirect } from "../../utils/NavigationUtils";
 
 const clientId =
-  process.env.REACT_APP_AUTH_CLIENT_ID !== undefined ? process.env.REACT_APP_AUTH_CLIENT_ID : "No ID found";
+  process.env.REACT_APP_AUTH_CLIENT_ID !== undefined
+    ? process.env.REACT_APP_AUTH_CLIENT_ID
+    : "No ID found";
 
 function Login() {
   const navigate = useNavigate();
 
-  const onSuccess = (res: any) => {
+  const onSuccess = async (res: any) => {
     localStorageStore(LOGIN_TOKEN, res.tokenObj);
-    navigate("/success");
+    localStorageStore(ACCOUNT_META_DATA, res.profileObj);
+    
+    const accountId: string = res.googleId;
+    const redirectPath:string = await determineLoginRedirect(accountId);
+    navigate(redirectPath);
   };
 
   const onFailure = (res: any) => {
