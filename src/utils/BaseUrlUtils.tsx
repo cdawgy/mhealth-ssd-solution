@@ -8,7 +8,7 @@ export const getBaseUrl = () => {
 };
 
 const baseUrls = {
-  local: "localhost:8080",
+  local: "http://localhost:8080",
   dev: "tdb",
 };
 

@@ -4,26 +4,24 @@ import { localStorageGet, localStorageStore } from "./LocalStorageUtils";
 import { MenuItemType } from "../types/MenuItem";
 import { MenuItems } from "../constants/MenuItemsData";
 import { AccountMenuItems } from "../types/AccountMenuItems";
+import { getBaseUrl } from "./BaseUrlUtils";
 
 export const retrieveAccountType = async (
   accountId: string
 ): Promise<string> => {
   const resp: AxiosResponse = await axios.get(
-    `http://localhost:8080/account/${accountId}/type`
+    `${getBaseUrl()}/account/${accountId}/type`
   );
   const accountType: string = resp.data;
   return accountType;
 };
 
 export const isActiveAccount = async (googleId: string): Promise<boolean> => {
-  const resp = await axios.get(
-    `http://localhost:8080/account/${googleId}/active`,
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    }
-  );
+  const resp = await axios.get(`${getBaseUrl()}/account/${googleId}/active`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
   localStorageStore(ACCOUNT_ID, googleId);
   const isActiveAccount: boolean = resp.data;
   return isActiveAccount;
