@@ -7,6 +7,17 @@ h1 {
   transform: rotate(-2deg);
 }
 
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Open Sans";
+}
+
+.bold {
+  font-weight: 600;
+}
+
 .title-font {
   font-family: "Darumadrop One";
 }
