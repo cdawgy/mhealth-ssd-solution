@@ -6,18 +6,18 @@ import { Resource } from "../../../types/Resource";
 import { fetchResource } from "../../../utils/ResourceUtils";
 
 const ResourceTemplate = () => {
-  const emptyResouce:Resource = {
-      id: 0,
-      title: "",
-      topicList: []
+  const emptyResouce: Resource = {
+    id: 0,
+    title: "",
+    topicList: [],
   };
   const [resource, setResource] = useState(emptyResouce);
   let { resourceId } = useParams();
   useEffect(() => {
     (async () => {
-      resourceId = resourceId === undefined ? "0" : resourceId;
+      const renderSafeResourceId = resourceId === undefined ? "0" : resourceId;
       const fetchedResource: Resource = await fetchResource(
-        parseInt(resourceId)
+        parseInt(renderSafeResourceId)
       );
       setResource(fetchedResource);
     })();

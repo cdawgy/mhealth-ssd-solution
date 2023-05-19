@@ -15,8 +15,11 @@ const SoundClipTemplate = () => {
   let { soundClipId } = useParams();
   useEffect(() => {
     (async () => {
-      soundClipId = soundClipId === undefined ? "0" : soundClipId;
-      const fetchedSoundClip: SoundClip = await fetchSoundClip(soundClipId);
+      const renderSafeSoundClipId =
+        soundClipId === undefined ? "0" : soundClipId;
+      const fetchedSoundClip: SoundClip = await fetchSoundClip(
+        renderSafeSoundClipId
+      );
       setResource(fetchedSoundClip);
     })();
   });

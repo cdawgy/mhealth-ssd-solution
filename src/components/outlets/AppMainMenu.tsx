@@ -2,8 +2,6 @@ import { useNavigate } from "react-router-dom";
 import { isUserLoggedIn } from "../../utils/LoginValidationUtils";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
-import { localStorageGet } from "../../utils/LocalStorageUtils";
-import { ACCOUNT_TYPE } from "../../constants/LocalStorageConstants";
 import NavigationBar from "../navigation/Navbar";
 import WelcomeMessage from "../mainMenu/WelcomeMessage";
 import AccountTypeMenu from "../mainMenu/AccountTypeMenu";
@@ -18,8 +16,6 @@ const AppMainMenu = () => {
       }
     })();
   });
-
-  const accountType: string = localStorageGet(ACCOUNT_TYPE);
 
   return (
     <motion.div
