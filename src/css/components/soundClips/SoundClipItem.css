@@ -1,0 +1,13 @@
+.sound-clip-container {
+  border-radius: 10px;
+  display: flex;
+  padding: 20px;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.sound-clip-data > p {
+  margin: 0;
+  font-size: 20px;
+}

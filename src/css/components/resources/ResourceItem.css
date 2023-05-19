@@ -1,0 +1,12 @@
+.resource-item-container {
+  display: flex;
+  padding: 20px;
+  margin: 20px 0;
+  border-radius: 10px;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resource-item-container > h3 {
+  margin: 0;
+}

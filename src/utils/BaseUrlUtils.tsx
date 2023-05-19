@@ -9,7 +9,7 @@ export const getBaseUrl = () => {
 
 const baseUrls = {
   local: "http://localhost:8080",
-  dev: "tdb",
+  dev: "https://m-health-backend.politetree-6caa3509.uksouth.azurecontainerapps.io/",
 };
 
 type BaseUrls = {

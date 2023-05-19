@@ -1,5 +1,4 @@
 import { useNavigate } from "react-router-dom";
-import Logout from "../routing/logout";
 import { isUserLoggedIn } from "../../utils/LoginValidationUtils";
 import { useEffect } from "react";
 import { motion } from "framer-motion";
