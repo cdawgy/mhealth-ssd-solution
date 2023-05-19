@@ -7,6 +7,9 @@ import CreateAccount from "../outlets/CreateAccount";
 import WhoIsIt from "../outlets/authenticated/WhoIsIt";
 import NotFound from "../outlets/NotFound";
 import Resources from "../outlets/authenticated/Resources";
+import ResourceTemplate from "../outlets/authenticated/ResourceTemplate";
+import SoundClips from "../outlets/authenticated/SoundClips";
+import SoundClipTemplate from "../outlets/authenticated/SoundClipTemplate";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -21,6 +24,9 @@ const AnimatedRoutes = () => {
           <Route path="createAccount" element={<CreateAccount />} />
           <Route path="whoIsIt" element={<WhoIsIt />} />
           <Route path="resources" element={<Resources />} />
+          <Route path="resources/resource/:resourceId" element={<ResourceTemplate />} />
+          <Route path="soundClips" element={<SoundClips />} />
+          <Route path="soundClips/clip/:soundClipId" element={<SoundClipTemplate />} />
         </Route>
       </Routes>
     </AnimatePresence>

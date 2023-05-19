@@ -17,10 +17,11 @@ const Resources = () => {
     <div>
       <NavigationBar />
       <div className="guttering">
-        <h1>Resources</h1>
+        <h1 className="screen-title">Resources</h1>
         {resources.map((resource) => {
           return (
             <ResourceItem
+              id={resource.id}
               title={resource.title}
               topicList={resource.topicList}
             />
