@@ -3,6 +3,7 @@ import NavigationBar from "../../navigation/Navbar";
 import SoundClipItem from "../../soundClips/SoundClipItem";
 import { fetchAllSoundClips } from "../../../utils/SoundClipUtils";
 import { SoundClip } from "../../../types/SoundClip";
+import { motion } from "framer-motion";
 
 const SoundClips = () => {
   const emptyListOfSoundClips: SoundClip[] = [];
@@ -14,7 +15,11 @@ const SoundClips = () => {
     })();
   });
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <NavigationBar />
       <div className="guttering">
         <h1 className="screen-title">Sound Clips</h1>
@@ -29,7 +34,7 @@ const SoundClips = () => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 export default SoundClips;

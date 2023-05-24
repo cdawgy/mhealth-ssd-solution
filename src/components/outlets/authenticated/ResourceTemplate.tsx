@@ -4,6 +4,7 @@ import TopicItem from "../../resources/TopicItem";
 import { useEffect, useState } from "react";
 import { Resource } from "../../../types/Resource";
 import { fetchResource } from "../../../utils/ResourceUtils";
+import { motion } from "framer-motion";
 
 const ResourceTemplate = () => {
   const emptyResouce: Resource = {
@@ -24,7 +25,11 @@ const ResourceTemplate = () => {
   });
 
   return (
-    <div>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <NavigationBar />
       <div className="guttering">
         <h1 className="screen-title">{resource.title}</h1>
@@ -37,7 +42,7 @@ const ResourceTemplate = () => {
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 };
 

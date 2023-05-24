@@ -1,0 +1,14 @@
+.create-resource {
+    background-color: #F4E04D;
+    border-radius: 10px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.create-resource > p {
+    font-family: 'Open Sans';
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    color: #ffffff;
+}

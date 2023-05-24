@@ -1,0 +1,12 @@
+.sound-controls > img {
+  margin-bottom: 30px;
+}
+
+.sound-controls > audio {
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.sound-template-container > p {
+    margin-bottom: 3px;
+}

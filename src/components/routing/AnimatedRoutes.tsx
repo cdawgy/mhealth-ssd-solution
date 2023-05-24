@@ -10,6 +10,8 @@ import Resources from "../outlets/authenticated/Resources";
 import ResourceTemplate from "../outlets/authenticated/ResourceTemplate";
 import SoundClips from "../outlets/authenticated/SoundClips";
 import SoundClipTemplate from "../outlets/authenticated/SoundClipTemplate";
+import Prescribe from "../outlets/authenticated/Prescribe";
+import CreateResource from "../outlets/authenticated/CreateResource";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -24,9 +26,17 @@ const AnimatedRoutes = () => {
           <Route path="createAccount" element={<CreateAccount />} />
           <Route path="whoIsIt" element={<WhoIsIt />} />
           <Route path="resources" element={<Resources />} />
-          <Route path="resources/resource/:resourceId" element={<ResourceTemplate />} />
+          <Route path="resources/createResource" element={<CreateResource />} />
+          <Route
+            path="resources/resource/:resourceId"
+            element={<ResourceTemplate />}
+          />
           <Route path="soundClips" element={<SoundClips />} />
-          <Route path="soundClips/clip/:soundClipId" element={<SoundClipTemplate />} />
+          <Route
+            path="soundClips/clip/:soundClipId"
+            element={<SoundClipTemplate />}
+          />
+          <Route path="prescribe" element={<Prescribe />} />
         </Route>
       </Routes>
     </AnimatePresence>

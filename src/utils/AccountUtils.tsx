@@ -31,3 +31,7 @@ export const getAccountTypeMenuItems = (): MenuItemType[] => {
   const accountType: string = localStorageGet(ACCOUNT_TYPE);
   return MenuItems[accountType as keyof AccountMenuItems];
 };
+
+export const isTherapist = (): boolean => {
+  return localStorageGet(ACCOUNT_TYPE) === "therapist";
+};
