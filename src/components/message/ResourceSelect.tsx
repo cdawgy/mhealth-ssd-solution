@@ -1,14 +1,14 @@
 import React from "react";
 import Select from "react-select";
-import { createWordPairSelectOptions } from "../../utils/PrescribeUtils";
 import { SelectOption } from "../../types/SelectOption";
-import DropdownIndicator from "./DropDownIndicator";
+import DropdownIndicator from "../prescribe/DropDownIndicator";
+import { createResourceSelectOptions } from "../../utils/MessageUtils";
 
 type state = {
   parentFormStateHandler: (obj: any) => void;
 };
 
-export default class WordPairSelect extends React.Component<state> {
+export default class ResourceSelect extends React.Component<state> {
   private parentFormStateHandler: (obj: any) => void;
 
   constructor(props: state) {
@@ -22,18 +22,18 @@ export default class WordPairSelect extends React.Component<state> {
   };
 
   handleChange = (selectedOption: any) => {
-    const explicitSelectedOption: SelectOption[] = selectedOption;
+    const explicitSelectedOption: SelectOption = selectedOption;
     this.setState({
       selectedOption: explicitSelectedOption,
       optionList: this.state.optionList,
     });
     this.parentFormStateHandler({
-      wordPairs: explicitSelectedOption.flatMap((option) => option.value),
+      selectedResource: explicitSelectedOption.value,
     });
   };
 
   async componentDidMount(): Promise<void> {
-    const selectOptions: SelectOption[] = await createWordPairSelectOptions();
+    const selectOptions: SelectOption[] = await createResourceSelectOptions();
     this.setState({
       selectedOption: this.state.selectedOption,
       optionList: selectOptions,
@@ -46,7 +46,6 @@ export default class WordPairSelect extends React.Component<state> {
     return (
       <Select
         value={selectedOption}
-        isMulti
         onChange={this.handleChange}
         options={this.state.optionList}
         components={{

@@ -3,7 +3,6 @@ import Select from "react-select";
 import { createChildSelectOptions } from "../../utils/PrescribeUtils";
 import { SelectOption } from "../../types/SelectOption";
 import DropdownIndicator from "./DropDownIndicator";
-import { SelectedOption } from "../../types/SelectedOption";
 
 type state = {
   parentFormStateHandler: (obj: any) => void;
@@ -23,7 +22,7 @@ export default class ChildSelect extends React.Component<state> {
   };
 
   handleChange = (selectedOption: any) => {
-    const explicitSelectedOption: SelectedOption = selectedOption;
+    const explicitSelectedOption: SelectOption = selectedOption;
     this.setState({
       selectedOption: explicitSelectedOption,
       optionList: this.state.optionList,
