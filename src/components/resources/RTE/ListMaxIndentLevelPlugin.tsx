@@ -1,29 +1,28 @@
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $getSelection,
-  $isElementNode,
   $isRangeSelection,
   INDENT_CONTENT_COMMAND,
   COMMAND_PRIORITY_HIGH,
 } from "lexical";
 import { useEffect } from "react";
 
-function getElementNodesInSelection(selection: any) {
-  const nodesInSelection = selection.getNodes();
+// function getElementNodesInSelection(selection: any) {
+//   const nodesInSelection = selection.getNodes();
 
-  if (nodesInSelection.length === 0) {
-    return new Set([
-      selection.anchor.getNode().getParentOrThrow(),
-      selection.focus.getNode().getParentOrThrow(),
-    ]);
-  }
+//   if (nodesInSelection.length === 0) {
+//     return new Set([
+//       selection.anchor.getNode().getParentOrThrow(),
+//       selection.focus.getNode().getParentOrThrow(),
+//     ]);
+//   }
 
-  return new Set(
-    nodesInSelection.map((n: any) =>
-      $isElementNode(n) ? n : n.getParentOrThrow()
-    )
-  );
-}
+//   return new Set(
+//     nodesInSelection.map((n: any) =>
+//       $isElementNode(n) ? n : n.getParentOrThrow()
+//     )
+//   );
+// }
 
 function isIndentPermitted(maxDepth: any) {
   const selection = $getSelection();
