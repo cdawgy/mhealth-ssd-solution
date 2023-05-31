@@ -1,4 +1,3 @@
-import { $getListDepth, $isListItemNode, $isListNode } from "@lexical/list";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
 import {
   $getSelection,
@@ -33,7 +32,7 @@ function isIndentPermitted(maxDepth: any) {
     return false;
   }
 
-  const elementNodesInSelection = getElementNodesInSelection(selection);
+  // const elementNodesInSelection = getElementNodesInSelection(selection);
 
   let totalDepth = 0;
 
