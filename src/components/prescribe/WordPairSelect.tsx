@@ -3,17 +3,33 @@ import Select from "react-select";
 import { createWordPairSelectOptions } from "../../utils/PrescribeUtils";
 import { SelectOption } from "../../types/SelectOption";
 import DropdownIndicator from "./DropDownIndicator";
+import { SelectedOption } from "../../types/SelectedOption";
 
-export default class WordPairSelect extends React.Component {
+type state = {
+  parentFormStateHandler: (obj: any) => void;
+};
+
+export default class WordPairSelect extends React.Component<state> {
+  private parentFormStateHandler: (obj: any) => void;
+
+  constructor(props: state) {
+    super(props);
+    this.parentFormStateHandler = props.parentFormStateHandler;
+  }
+
   state = {
     selectedOption: null,
     optionList: [],
   };
 
   handleChange = (selectedOption: any) => {
+    const explicitSelectedOption: SelectedOption[] = selectedOption;
     this.setState({
-      selectedOption: selectedOption,
+      selectedOption: explicitSelectedOption,
       optionList: this.state.optionList,
+    });
+    this.parentFormStateHandler({
+      wordPairs: explicitSelectedOption.flatMap((option) => option.value),
     });
   };
 
