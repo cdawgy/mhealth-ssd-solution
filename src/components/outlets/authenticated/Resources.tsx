@@ -14,7 +14,7 @@ const Resources = () => {
       const fetchedResources: Resource[] = await fetchAllResources();
       setResources(fetchedResources);
     })();
-  });
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}

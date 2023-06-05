@@ -1,14 +1,21 @@
 .userOptionContainer {
-  border-radius: 10px;
   display: block;
   padding: 10px 20px;
   margin-top: 50px;
+}
+
+.parentContainer {
+  border-radius: 10px 0 0 10px;
 }
 
 .parentContainer > h2 {
   transform: rotate(-3deg);
   color: #9d877a;
   font-size: 48px;
+}
+
+.childContainer {
+  border-radius: 0 10px 10px 0;
 }
 
 .childContainer > h2 {

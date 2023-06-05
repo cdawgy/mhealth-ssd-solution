@@ -1,0 +1,7 @@
+.award-table > div:first-child > div > div > .award-table-row-header {
+    border-radius: 5px 5px 0 0;
+}
+
+.award-table > div:last-child > div > div > .award-table-row-body {
+    border-radius: 0 0 5px 5px;
+}

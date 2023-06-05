@@ -21,6 +21,8 @@ const ResourceTemplate = () => {
         parseInt(renderSafeResourceId)
       );
       setResource(fetchedResource);
+      console.log(fetchedResource);
+      
     })();
   });
 

@@ -13,7 +13,7 @@ const SoundClips = () => {
       const fetchedSoundClips = await fetchAllSoundClips();
       setSoundClips(fetchedSoundClips);
     })();
-  });
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 0 }}

@@ -13,6 +13,7 @@ import SoundClipTemplate from "../outlets/authenticated/SoundClipTemplate";
 import Prescribe from "../outlets/authenticated/Prescribe";
 import CreateResource from "../outlets/authenticated/CreateResource";
 import Message from "../outlets/authenticated/Message";
+import Awards from "../outlets/authenticated/Awards";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -39,6 +40,7 @@ const AnimatedRoutes = () => {
           />
           <Route path="prescribe" element={<Prescribe />} />
           <Route path="message" element={<Message />} />
+          <Route path="awards" element={<Awards />} />
         </Route>
       </Routes>
     </AnimatePresence>

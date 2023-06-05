@@ -1,0 +1,14 @@
+.award-table-row-body {
+    padding: 10px;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.award-table-row-body-item {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 0 5px 5px 0;
+    border-radius: 5px;
+    font-weight: bold;
+    font-size: 18px;
+}

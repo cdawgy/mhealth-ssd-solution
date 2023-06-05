@@ -46,3 +46,9 @@
 #appTitle {
   animation: float 6s ease-in-out infinite;
 }
+
+.accents {
+  position: absolute;
+  left: -40px;
+  top: -15px;
+}

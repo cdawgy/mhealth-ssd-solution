@@ -16,7 +16,7 @@ const LoginScreen = () => {
     >
       <div className="colouredBackground">
         <h1 id="appTitle" className="font-white">
-          <img alt="logo accents" src={logoAccents} />
+          <img className="accents" alt="logo accents" src={logoAccents} />
           Fluency
         </h1>
       </div>

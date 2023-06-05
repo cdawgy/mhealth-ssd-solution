@@ -40,6 +40,10 @@ label {
   color: #ffffff;
 }
 
+.font-blue {
+  color: #5eb1bf;
+}
+
 .screenWrapper {
   height: 100vh;
   position: relative;
