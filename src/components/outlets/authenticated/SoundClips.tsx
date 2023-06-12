@@ -29,7 +29,9 @@ const SoundClips = () => {
               id={soundClip.id}
               word={soundClip.word}
               sound={soundClip.sound}
-              date={soundClip.date}
+              dateCreated={soundClip.dateCreated}
+              childId={soundClip.childId}
+              locationUrl={soundClip.locationUrl}
             />
           );
         })}

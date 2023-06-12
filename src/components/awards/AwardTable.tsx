@@ -3,31 +3,25 @@ import { fetchAwards } from "../../utils/AwardUtils";
 import AwardTableRow from "./AwardTableRow";
 import { GroupedAwards } from "../../types/GroupedAwards";
 import "../../css/components/awards/AwardTable.css";
+import { Award } from "../../types/Award";
 
 const AwardTable = () => {
-  const emptyAward: GroupedAwards = {
-    7: [],
-    5: [],
-    3: [],
-  };
-  const [groupedAwards, setAwards] = useState(emptyAward);
-  const listOfAwardCosts: string[] = Object.getOwnPropertyNames(groupedAwards);
+  const emptyMapOfGroupedAwards: Map<string, Award[]> = new Map();
+  const [mapOfGroupedAwards, setAwards] = useState(emptyMapOfGroupedAwards);
+  // const listOfAwardCosts: string[] = Object.getOwnPropertyNames(listOfAwards);
   useEffect(() => {
     (async () => {
-      const fetchedAwards: GroupedAwards = await fetchAwards();
-      setAwards(fetchedAwards);
+      const fetchedGroupedAwards: Map<string, Award[]> = await fetchAwards();
+      setAwards(fetchedGroupedAwards);
     })();
   }, []);
   return (
     <div className="award-table">
-      {listOfAwardCosts.map((awardCost) => (
-        <AwardTableRow
-          rowCost={awardCost}
-          awards={
-            groupedAwards[Number.parseInt(awardCost) as keyof GroupedAwards]
-          }
-        />
-      ))}
+      {Object.keys(mapOfGroupedAwards).map((groupedCost: string) => {
+        const awards =
+          mapOfGroupedAwards[groupedCost as keyof unknown];
+        return <AwardTableRow rowCost={groupedCost} awards={awards} />;
+      })}
     </div>
   );
 };

@@ -10,7 +10,7 @@ const ResourceTemplate = () => {
   const emptyResouce: Resource = {
     id: 0,
     title: "",
-    topicList: [],
+    content: "",
   };
   const [resource, setResource] = useState(emptyResouce);
   let { resourceId } = useParams();
@@ -20,11 +20,9 @@ const ResourceTemplate = () => {
       const fetchedResource: Resource = await fetchResource(
         parseInt(renderSafeResourceId)
       );
-      setResource(fetchedResource);
-      console.log(fetchedResource);
-      
+      setResource(fetchedResource);      
     })();
-  });
+  },[]);
 
   return (
     <motion.div
@@ -35,14 +33,7 @@ const ResourceTemplate = () => {
       <NavigationBar />
       <div className="guttering">
         <h1 className="screen-title">{resource.title}</h1>
-        {resource.topicList.map((topic) => {
-          return (
-            <TopicItem
-              topicName={topic.topicName}
-              topicContent={topic.topicContent}
-            />
-          );
-        })}
+        <p>{resource.content}</p>
       </div>
     </motion.div>
   );

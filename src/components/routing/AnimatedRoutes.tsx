@@ -14,6 +14,7 @@ import Prescribe from "../outlets/authenticated/Prescribe";
 import CreateResource from "../outlets/authenticated/CreateResource";
 import Message from "../outlets/authenticated/Message";
 import Awards from "../outlets/authenticated/Awards";
+import CreateAward from "../outlets/authenticated/CreateAward";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -41,6 +42,7 @@ const AnimatedRoutes = () => {
           <Route path="prescribe" element={<Prescribe />} />
           <Route path="message" element={<Message />} />
           <Route path="awards" element={<Awards />} />
+          <Route path="awards/newAward" element={<CreateAward />} />
         </Route>
       </Routes>
     </AnimatePresence>

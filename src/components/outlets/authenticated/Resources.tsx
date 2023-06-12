@@ -9,12 +9,14 @@ import CreateResourceButton from "../../resources/CreateResourceButton";
 const Resources = () => {
   const emptyResourceList: Resource[] = [];
   const [resources, setResources] = useState(emptyResourceList);
+
   useEffect(() => {
     (async () => {
       const fetchedResources: Resource[] = await fetchAllResources();
       setResources(fetchedResources);
     })();
   }, []);
+  
   return (
     <motion.div
       initial={{ opacity: 0 }}
@@ -30,7 +32,7 @@ const Resources = () => {
             <ResourceItem
               id={resource.id}
               title={resource.title}
-              topicList={resource.topicList}
+              content={resource.content}
             />
           );
         })}

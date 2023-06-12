@@ -12,7 +12,9 @@ const SoundClipTemplate = () => {
     id: 0,
     word: "",
     sound: "",
-    date: new Date(),
+    dateCreated: new Date(),
+    childId: 0,
+    locationUrl: ""
   };
   const [soundClip, setResource] = useState(emptySoundClip);
   let { soundClipId } = useParams();
@@ -52,7 +54,7 @@ const SoundClipTemplate = () => {
         </p>
         <p>
           <b>Date: </b>
-          {new Date(soundClip.date.toString()).toLocaleDateString("en-GB", {
+          {new Date(soundClip.dateCreated.toString()).toLocaleDateString("en-GB", {
             day: "numeric",
             year: "numeric",
             month: "numeric",

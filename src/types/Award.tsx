@@ -1,4 +1,6 @@
 export type Award = {
-  awardCost: number;
-  awardTitle: string;
+  id: number;
+  parentId: number;
+  title: string;
+  cost: number;
 };

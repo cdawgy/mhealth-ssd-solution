@@ -18,7 +18,7 @@ const AwardTableRowBody = (props: awardBody) => {
           className="award-table-row-body-item"
           style={{ color: props.colours.primaryColour }}
         >
-          {award.awardTitle}
+          {award.title}
         </p>
       ))}
     </div>

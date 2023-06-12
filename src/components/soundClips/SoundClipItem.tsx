@@ -22,7 +22,7 @@ const SoundClipItem = (props: SoundClip) => {
         </p>
         <p>
           <b>Date: </b>
-          {new Date(props.date.toString()).toLocaleDateString("en-GB", {
+          {new Date(props.dateCreated.toString()).toLocaleDateString("en-GB", {
             day: "numeric",
             year: "numeric",
             month: "numeric",

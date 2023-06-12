@@ -4,12 +4,12 @@ import { SelectOption } from "../types/SelectOption";
 import { fetchAllResources } from "./ResourceUtils";
 import { Resource } from "../types/Resource";
 import { localStorageGet } from "./LocalStorageUtils";
-import { ACCOUNT_ID } from "../constants/LocalStorageConstants";
+import { LOGGED_IN_TABLE_REFERENCE } from "../constants/LocalStorageConstants";
 
 const getListOfPatientsParentNames = async (): Promise<string[]> => {
   const resp: AxiosResponse = await axios.post(
     `${getBaseUrl()}/therapist/patients/parents`,
-    { googleId: localStorageGet(ACCOUNT_ID) },
+    { id: localStorageGet(LOGGED_IN_TABLE_REFERENCE) },
     {
       headers: {
         "Access-Control-Allow-Origin": "*",

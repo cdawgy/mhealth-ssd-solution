@@ -1,23 +1,48 @@
-import axios from "axios";
+import axios, { AxiosResponse } from "axios";
 import { getBaseUrl } from "./BaseUrlUtils";
 import { localStorageGet } from "./LocalStorageUtils";
-import { ACCOUNT_ID } from "../constants/LocalStorageConstants";
-import { GroupedAwards } from "../types/GroupedAwards";
+import {
+  ACCOUNT_ID,
+  LOGGED_IN_TABLE_REFERENCE,
+} from "../constants/LocalStorageConstants";
 import { tableRowColours } from "../types/TableRowColours";
+import { Award } from "../types/Award";
 
-export const fetchAwards = async (): Promise<GroupedAwards> => {
+export const fetchAwards = async (): Promise<Map<string, Award[]>> => {
   const resp = await axios.post(
     `${getBaseUrl()}/account/awards`,
     {
-      googleId: localStorageGet(ACCOUNT_ID),
+      id: localStorageGet(LOGGED_IN_TABLE_REFERENCE),
     },
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
     }
-  );  
+  );
   return resp.data;
+};
+
+// TODO: Add in the parents accound ID to post request so it can be tethered to the account
+export const createAward = async (
+  awardTitle: string,
+  awardPoints: number
+): Promise<number> => {
+  const resp: AxiosResponse = await axios.post(
+    `${getBaseUrl()}/account/awards/create`,
+    {
+      parentId: localStorageGet(LOGGED_IN_TABLE_REFERENCE),
+      cost: awardPoints,
+      title: awardTitle,
+    },
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+
+  return resp.status;
 };
 
 export const determineRowColours = (awardCost: number): tableRowColours => {
