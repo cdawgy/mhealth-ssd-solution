@@ -3,8 +3,15 @@ import "../../css/components/prescribe/PrescribeForm.css";
 import React from "react";
 import ParentSelect from "./ParentSelect";
 import ResourceSelect from "./ResourceSelect";
+import { postMessageToServer } from "../../utils/MessageUtils";
 
-class MessageForm extends React.Component {
+type state = {
+  selectedParent: string;
+  selectedResource: string;
+  messageBody: string;
+};
+
+class MessageForm extends React.Component<{}, state> {
   constructor(props: any) {
     super(props);
     this.state = {
@@ -19,8 +26,15 @@ class MessageForm extends React.Component {
     this.setState(obj);
   };
 
-  handleFormSubmit = () => {
-    console.log(this.state);
+  handleFormSubmit = async () => {
+    const payload = {
+      selectedParent: this.state.selectedParent,
+      selectedResource: this.state.selectedResource,
+      messageBody: this.state.messageBody,
+    };
+    const resp = await postMessageToServer(payload);
+    console.log(resp);
+    
   };
 
   messageBodyOnChange = (e: any) => {

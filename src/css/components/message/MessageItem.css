@@ -1,0 +1,14 @@
+.message-item {
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.message-item > p {
+  margin: 0;
+}
+
+.message-item > img {
+    margin-right: 10px;
+}

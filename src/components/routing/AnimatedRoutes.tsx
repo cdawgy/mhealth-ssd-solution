@@ -15,6 +15,8 @@ import CreateResource from "../outlets/authenticated/CreateResource";
 import Message from "../outlets/authenticated/Message";
 import Awards from "../outlets/authenticated/Awards";
 import CreateAward from "../outlets/authenticated/CreateAward";
+import Messages from "../outlets/authenticated/Messages";
+import MessageView from "../outlets/authenticated/MessageView";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -41,6 +43,11 @@ const AnimatedRoutes = () => {
           />
           <Route path="prescribe" element={<Prescribe />} />
           <Route path="message" element={<Message />} />
+          <Route path="messages" element={<Messages />} />
+          <Route
+            path="messages/message/:messageId"
+            element={<MessageView />}
+          />
           <Route path="awards" element={<Awards />} />
           <Route path="awards/newAward" element={<CreateAward />} />
         </Route>

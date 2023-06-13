@@ -11,6 +11,7 @@ export const MenuItems: AccountMenuItems = {
     { imageUrl: resourcesIcon, title: "Resources", path: "/resources" },
     { imageUrl: soundClipIcon, title: "Sound Clips", path: "/soundClips" },
     { imageUrl: awardIcon, title: "Awards", path: "/awards" },
+    { imageUrl: messageIcon, title: "Messages", path: "/messages" },
   ],
   child: [{ imageUrl: gameIcon, title: "Game", path: "/game" }],
   therapist: [
