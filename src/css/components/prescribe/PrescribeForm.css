@@ -25,3 +25,9 @@ select::-ms-expand {
   padding: 10px 20px;
   border-radius: 10px;
 }
+
+.active {
+  color: #5eb1bf;
+  border-bottom: solid 1px #5eb1bf;
+  width: fit-content;
+}

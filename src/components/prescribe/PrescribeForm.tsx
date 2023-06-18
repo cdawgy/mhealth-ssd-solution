@@ -4,6 +4,7 @@ import ChildSelect from "./ChildSelect";
 import WordPairSelect from "./WordPairSelect";
 import React from "react";
 import { PrescribeFormState } from "../../types/PerscribeFormState";
+import CustomWordSelect from "./CustomWordSelect";
 
 class PrescribeForm extends React.Component<{}, PrescribeFormState> {
   constructor(props: any) {
@@ -13,6 +14,7 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
       sessionTime: "",
       wordAttempts: "",
       wordPairs: "",
+      wordView: "c",
     };
     this.stateHandler = this.stateHandler.bind(this);
   }
@@ -37,7 +39,32 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
     });
   };
 
+  updateRenderedWordView = (event: any) => {
+    const clickedView = event.target.id;
+    if (clickedView === "preset") {
+      this.setState({
+        wordView: "p",
+      });
+    } else if (clickedView === "custom") {
+      this.setState({
+        wordView: "c",
+      });
+    }
+  };
+
+  renderWordPairSelectionTool = () => {
+    return this.state.wordView === "c" ? (
+      <CustomWordSelect parentFormStateHandler={this.stateHandler} />
+    ) : (
+      <p>Preset</p>
+    );
+  };
+
   render() {
+    const customIsActive =
+      this.state.wordView === "c" ? "active" : "non-active";
+    const presetIsActive =
+      this.state.wordView === "p" ? "active" : "non-active";
     return (
       <Col>
         <Row>
@@ -70,7 +97,27 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
         </Row>
         <Row>
           <p>Word Pairs</p>
-          <WordPairSelect parentFormStateHandler={this.stateHandler} />
+          <Col xs={6}>
+            <p
+              id="custom"
+              className={customIsActive}
+              onClick={this.updateRenderedWordView}
+            >
+              Custom
+            </p>
+          </Col>
+          <Col xs={6}>
+            <p
+              id="preset"
+              className={presetIsActive}
+              onClick={this.updateRenderedWordView}
+            >
+              Preset
+            </p>
+          </Col>
+        </Row>
+        {this.renderWordPairSelectionTool()}
+        <Row>
           <Col xs={12} className="text-center mt-4">
             <div
               onClick={this.handleFormSubmit}

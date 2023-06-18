@@ -68,13 +68,25 @@ export const getAllMessagesForUser = async (): Promise<MessageType[]> => {
   return resp.data;
 };
 
-export const setMessageReadStatus = async (messageId:number) => {
-  await axios.get(
-    `${getBaseUrl()}/message/read/${messageId}`,
+export const setMessageReadStatus = async (messageId: number) => {
+  await axios.get(`${getBaseUrl()}/message/read/${messageId}`, {
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+    },
+  });
+};
+
+export const fetchMessageById = async (
+  messageId: string
+): Promise<MessageType> => {
+  const resp: AxiosResponse<MessageType> = await axios.get(
+    `${getBaseUrl()}/message/${messageId}`,
     {
       headers: {
         "Access-Control-Allow-Origin": "*",
       },
     }
   );
-}
+
+  return resp.data;
+};

@@ -3,4 +3,5 @@ export type PrescribeFormState = {
   sessionTime: string;
   wordAttempts: string;
   wordPairs: string;
+  wordView: string;
 };
