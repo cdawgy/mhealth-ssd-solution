@@ -1,10 +1,14 @@
 import { Col, Row } from "react-bootstrap";
 import "../../css/components/prescribe/PrescribeForm.css";
 import ChildSelect from "./ChildSelect";
-import WordPairSelect from "./WordPairSelect";
+import PresetWordPairSelect from "./PresetWordPairSelect";
 import React from "react";
 import { PrescribeFormState } from "../../types/PerscribeFormState";
 import CustomWordSelect from "./CustomWordSelect";
+import { Prescription } from "../../types/Prescription";
+import { localStorageGet } from "../../utils/LocalStorageUtils";
+import { LOGGED_IN_TABLE_REFERENCE } from "../../constants/LocalStorageConstants";
+import { sendPrescriptionToDatabase } from "../../utils/PrescribeUtils";
 
 class PrescribeForm extends React.Component<{}, PrescribeFormState> {
   constructor(props: any) {
@@ -13,7 +17,7 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
       selectedChild: "",
       sessionTime: "",
       wordAttempts: "",
-      wordPairs: "",
+      wordPairs: [],
       wordView: "c",
     };
     this.stateHandler = this.stateHandler.bind(this);
@@ -23,8 +27,22 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
     this.setState(obj);
   };
 
-  handleFormSubmit = () => {
-    console.log(this.state);
+  handleFormSubmit = async () => {
+    const databaseSanitizedWordSet = this.state.wordPairs
+      .map((wordPair) => `${wordPair.firstWordId}+${wordPair.secondWordId}`)
+      .toString();
+    const prescription: Prescription = {
+      parentId: this.state.selectedChild,
+      therapistId: localStorageGet(LOGGED_IN_TABLE_REFERENCE),
+      sessionTime: this.state.sessionTime,
+      sessionWordCount: this.state.wordAttempts,
+      sessionWordSet: databaseSanitizedWordSet,
+    };
+
+    const status = await sendPrescriptionToDatabase(prescription);
+    if (status === 200) {
+      alert("Prescribed");
+    }
   };
 
   sessionTimeOnChange = (event: any) => {
@@ -56,7 +74,7 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
     return this.state.wordView === "c" ? (
       <CustomWordSelect parentFormStateHandler={this.stateHandler} />
     ) : (
-      <p>Preset</p>
+      <PresetWordPairSelect parentFormStateHandler={this.stateHandler} />
     );
   };
 

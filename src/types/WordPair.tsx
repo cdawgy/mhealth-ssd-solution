@@ -1,4 +1,4 @@
 export type WordPair = {
-  firstWord: string;
-  secondWord: string;
+  firstWordId: number;
+  secondWordId: number;
 };

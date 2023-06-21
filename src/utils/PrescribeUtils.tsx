@@ -4,8 +4,10 @@ import { SelectOption } from "../types/SelectOption";
 import { WordPair } from "../types/WordPair";
 import { localStorageGet } from "./LocalStorageUtils";
 import { LOGGED_IN_TABLE_REFERENCE } from "../constants/LocalStorageConstants";
+import { Child } from "../types/Child";
+import { Prescription } from "../types/Prescription";
 
-const getListOfTherapistPatients = async (): Promise<string[]> => {
+const getListOfTherapistPatients = async (): Promise<Child[]> => {
   const resp: AxiosResponse = await axios.post(
     `${getBaseUrl()}/therapist/patients`,
     { id: localStorageGet(LOGGED_IN_TABLE_REFERENCE) },
@@ -19,9 +21,9 @@ const getListOfTherapistPatients = async (): Promise<string[]> => {
 };
 
 export const createChildSelectOptions = async (): Promise<SelectOption[]> => {
-  const childrenNames = await getListOfTherapistPatients();
-  return childrenNames.map((name) => {
-    return { value: name, label: name };
+  const therapistChildPatients = await getListOfTherapistPatients();
+  return therapistChildPatients.map((child) => {
+    return { value: child.parentId.toString(), label: child.firstName };
   });
 };
 
@@ -37,15 +39,18 @@ const getListOfWordPairs = async (): Promise<WordPair[]> => {
   return resp.data;
 };
 
-export const createWordPairSelectOptions = async (): Promise<
-  SelectOption[]
-> => {
-  const wordPairs = await getListOfWordPairs();
-  return wordPairs.map((wordPair) => {
-    const wordPairFormatted: string = `${wordPair.firstWord}, ${wordPair.secondWord}`;
-    return {
-      value: wordPairFormatted,
-      label: wordPairFormatted,
-    };
-  });
+export const sendPrescriptionToDatabase = async (
+  prescription: Prescription
+): Promise<number> => {
+  const resp: AxiosResponse = await axios.post(
+    `${getBaseUrl()}/prescription/prescribe`,
+    prescription,
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+
+  return resp.status;
 };

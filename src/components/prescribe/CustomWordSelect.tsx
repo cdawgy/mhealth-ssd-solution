@@ -1,6 +1,5 @@
 import React from "react";
 import Select from "react-select";
-import { createWordPairSelectOptions } from "../../utils/PrescribeUtils";
 import { SelectOption } from "../../types/SelectOption";
 import DropdownIndicator from "./DropDownIndicator";
 import { Col, Row } from "react-bootstrap";
@@ -80,8 +79,15 @@ export default class CustomWordSelect extends React.Component<props> {
         selectedWordPairOption: [],
       });
 
+      // This is messy but create new array for prescribing
+      const parentWordPairs = newSet.map((wordPair) => {
+        return {
+          firstWordId: wordPair.firstWord.value,
+          secondWordId: wordPair.secondWord.value,
+        };
+      });
       this.parentFormStateHandler({
-        wordPairs: newSet,
+        wordPairs: parentWordPairs,
       });
     }
   };
