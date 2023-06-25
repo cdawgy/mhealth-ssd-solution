@@ -4,4 +4,5 @@ export type Prescription = {
   sessionTime: string;
   sessionWordCount: string;
   sessionWordSet: string;
+  sessionWordSetTitle: string;
 };
