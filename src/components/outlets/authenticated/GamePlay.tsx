@@ -4,11 +4,16 @@ import NavigationBar from "../../navigation/Navbar";
 import "../../../css/components/outlets/authenticated/Game.css";
 import React from "react";
 import { NavigateFunction, useNavigate } from "react-router-dom";
-import { localStorageStore } from "../../../utils/LocalStorageUtils";
+import {
+  localStorageGet,
+  localStorageStore,
+} from "../../../utils/LocalStorageUtils";
+import { CACHED_GAME_STATE } from "../../../constants/GameConstants";
 
 const addCustomConfig = (game: Phaser.Game, navigate: NavigateFunction) => {
   const tempConfig: any = game.config;
   tempConfig.navigate = navigate;
+  tempConfig.gameState = localStorageGet(CACHED_GAME_STATE);
 };
 
 const GamePlay = () => {

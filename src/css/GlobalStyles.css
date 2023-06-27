@@ -1,3 +1,14 @@
+@font-face {
+  font-family: "Darumadrop One";
+  src: local("Darumadrop One"), url(../fonts/DarumadropOne-Regular.ttf),
+    format("tff");
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: local("Open Sans"), url(../fonts/opensans.ttf), format("tff");
+}
+
 h1 {
   font-family: "Darumadrop One";
   color: #2e6a74;
