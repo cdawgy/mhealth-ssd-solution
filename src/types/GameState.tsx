@@ -3,4 +3,5 @@ export type GameState = {
   childPlaying: boolean;
   wordEventAttemptedWordCount: number;
   successfulWordEvent: boolean;
+  sender: string;
 };

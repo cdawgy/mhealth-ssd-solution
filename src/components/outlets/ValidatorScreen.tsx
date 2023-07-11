@@ -21,6 +21,7 @@ const ValidatorScreen = () => {
       if (!hasConnected) {
         hasConnected = true;
         cachedGameState.validatorConnected = hasConnected;
+        cachedGameState.sender = "validator";
         setCachedGameState(cachedGameState);
         roomCode = roomCode ? roomCode : "0";
         connectToRoom(handleStateChange, parseInt(roomCode));
@@ -46,11 +47,14 @@ const ValidatorScreen = () => {
         childPlaying: true,
         successfulWordEven: true,
         wordEventAttemptedWordCount: total,
+        sender: "validator",
       }));
       cachedGameState.childPlaying = true;
       cachedGameState.successfulWordEvent = true;
       cachedGameState.wordEventAttemptedWordCount = total;
+      cachedGameState.sender = "validator";
       updateState(roomCode, cachedGameState);
+      setWordEventCount(0);
     }
   };
 
@@ -74,7 +78,9 @@ const ValidatorScreen = () => {
   };
 
   const handleStateChange = (gameState: GameState) => {
-    setCachedGameState(gameState);
+    if (gameState.sender === "player") {
+      setCachedGameState(gameState);
+    }
   };
 
   const displayWaitingForChild: string = cachedGameState.childPlaying

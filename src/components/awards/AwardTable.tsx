@@ -8,7 +8,6 @@ import { Award } from "../../types/Award";
 const AwardTable = () => {
   const emptyMapOfGroupedAwards: Map<string, Award[]> = new Map();
   const [mapOfGroupedAwards, setAwards] = useState(emptyMapOfGroupedAwards);
-  // const listOfAwardCosts: string[] = Object.getOwnPropertyNames(listOfAwards);
   useEffect(() => {
     (async () => {
       const fetchedGroupedAwards: Map<string, Award[]> = await fetchAwards();

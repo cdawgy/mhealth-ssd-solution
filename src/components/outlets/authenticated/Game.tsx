@@ -1,6 +1,10 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
-import { connectToRoom, stompClient } from "../../../utils/WebSocketUtils";
+import {
+  connectToRoom,
+  disconnectFromRoom,
+  stompClient,
+} from "../../../utils/WebSocketUtils";
 import { getBaseUrl } from "../../../utils/BaseUrlUtils";
 import QRCode from "react-qr-code";
 import { useNavigate, useParams } from "react-router-dom";
@@ -32,6 +36,7 @@ const Game = () => {
   const gameStateListener = (gameState: GameState) => {
     if (gameState.validatorConnected) {
       localStorageStore(CACHED_GAME_STATE, gameState);
+      disconnectFromRoom();
       navigate("/game/play");
     }
   };

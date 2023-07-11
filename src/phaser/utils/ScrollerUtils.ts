@@ -9,7 +9,11 @@ import { ButtonStyles } from "../GameStyles";
 import { navigateToNewScene } from "./NavigationUtils";
 import MainGame from "../MainGame";
 import { localStorageStore } from "../../utils/LocalStorageUtils";
-import { PRESCRIPTION_META_DATA_ID } from "../../constants/GameConstants";
+import {
+  PRESCRIPTION_META_DATA_ID,
+  PRESCRIPTION_WORD_SET,
+} from "../../constants/GameConstants";
+import { fetchAllWordPairs } from "./WordPairUtils";
 
 export const createScroller = (
   scene: Phaser.Scene,
@@ -35,11 +39,15 @@ export const createScroller = (
     })
     .on(
       "child.click",
-      (child: Label) => {
-        localStorageStore(
-          PRESCRIPTION_META_DATA_ID,
-          child.getData(PRESCRIPTION_META_DATA_ID)
+      async (child: Label) => {
+        const prescriptionMetaData: Prescription = child.getData(
+          PRESCRIPTION_META_DATA_ID
         );
+        const wordPairSet = await fetchAllWordPairs(
+          prescriptionMetaData.sessionWordSet
+        );
+        localStorageStore(PRESCRIPTION_WORD_SET, wordPairSet);
+        localStorageStore(PRESCRIPTION_META_DATA_ID, prescriptionMetaData);
         navigateToNewScene(scene, MainGame.MAIN_GAME_SCENE_ID);
       },
       this

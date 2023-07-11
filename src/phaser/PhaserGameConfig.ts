@@ -4,11 +4,15 @@ import WordSelectMenu from "./WordSelectMenu";
 import PrescriptionsMenu from "./Prescriptions";
 import UIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 import MainGame from "./MainGame";
+import GameFinished from "./GameFinished";
 
 export const config: Phaser.Types.Core.GameConfig | any = {
   type: Phaser.AUTO,
   parent: "phaser-container",
   backgroundColor: "#ff88ff",
+  audio: {
+    disableWebAudio: true,
+  },
   plugins: {
     scene: [
       {
@@ -31,5 +35,5 @@ export const config: Phaser.Types.Core.GameConfig | any = {
       debug: true,
     },
   },
-  scene: [MainMenu, WordSelectMenu, PrescriptionsMenu, MainGame],
+  scene: [MainMenu, WordSelectMenu, PrescriptionsMenu, MainGame, GameFinished],
 };

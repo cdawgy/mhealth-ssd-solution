@@ -2,5 +2,5 @@ export type Word = {
   id: number;
   word: string;
   phoneme: string;
-  imageUrl: string;
+  image_url: string;
 };

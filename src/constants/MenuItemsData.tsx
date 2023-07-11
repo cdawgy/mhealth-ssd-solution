@@ -13,7 +13,10 @@ export const MenuItems: AccountMenuItems = {
     { imageUrl: awardIcon, title: "Awards", path: "/awards" },
     { imageUrl: messageIcon, title: "Messages", path: "/messages" },
   ],
-  child: [{ imageUrl: gameIcon, title: "Game", path: "/game" }],
+  child: [
+    { imageUrl: gameIcon, title: "Game", path: "/game" },
+    { imageUrl: awardIcon, title: "Awards", path: "/awards" },
+  ],
   therapist: [
     { imageUrl: resourcesIcon, title: "Resources", path: "/resources" },
     { imageUrl: soundClipIcon, title: "Sound Clips", path: "/soundClips" },

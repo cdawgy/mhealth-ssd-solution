@@ -1,48 +1,83 @@
 import WordSelectMenu from "./WordSelectMenu";
-import { ButtonStyles, TitleStyles } from "./GameStyles";
+import { ButtonStyles, SideTextStyles, TitleStyles } from "./GameStyles";
 import { addCentreTextToScene, addTextToScene } from "./utils/TextUtils";
 import { exitGame, navigateToNewScene } from "./utils/NavigationUtils";
-import { localStorageGet } from "../utils/LocalStorageUtils";
+import { localStorageGet, localStorageStore } from "../utils/LocalStorageUtils";
 import {
   CACHED_ROOM_CODE,
+  FIRST_WORD_IMAGE,
+  FIRST_WORD_VALUE,
+  GAME_COMPLETED_DATA,
   PRESCRIPTION_META_DATA_ID,
+  PRESCRIPTION_WORD_SET,
+  SECOND_WORD_IMAGE,
+  SECOND_WORD_VALUE,
 } from "../constants/GameConstants";
 import { Prescription } from "../types/Prescription";
 import { GameState } from "../types/GameState";
 import { connectToRoom, updateState } from "../utils/WebSocketUtils";
 import MeterBar from "./component/MeterBar";
+import { fetchAllWordPairs } from "./utils/WordPairUtils";
+import { WordPairs } from "../types/WordPair";
+import { createModal } from "./utils/ModalUtils";
+import WordEventModal from "./component/WordEventModal";
+import RoundManager from "./component/RoundManager";
+import { fadeTextInWithParticles } from "./utils/PopUpEmittedTextUtils";
+import GameFinished from "./GameFinished";
+import { GameCompletedState } from "../types/GameCompletedState";
 
 export default class MainGame extends Phaser.Scene {
   public static MAIN_GAME_SCENE_ID = "maingame";
   private timeOfOverlap: number;
   private detector: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-  private hiddenWords: Phaser.Physics.Arcade.Group;
   private gameState: GameState;
-  private wordCount: Phaser.GameObjects.Text;
   private wordCountBar: MeterBar;
   private prescriptionMetaData: Prescription;
+  private currentlyHoveredWordPair: {
+    firstWord: string;
+    secondWord: string;
+    name: string;
+  };
+  private roundManager: RoundManager;
+  private cachedHoveredHiddenWord: any;
+  private barCompleteText: Phaser.GameObjects.Text;
+  private gameComplete: Phaser.GameObjects.Text;
+  private gameFinishedLock: boolean;
 
   constructor() {
     super(MainGame.MAIN_GAME_SCENE_ID);
+    this.gameFinishedLock = false;
     this.timeOfOverlap = new Date().getSeconds();
     this.detector = {} as Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
-    this.hiddenWords = {} as Phaser.Physics.Arcade.Group;
     this.gameState = {} as GameState;
-    this.wordCount = {} as Phaser.GameObjects.Text;
-    connectToRoom((gameState: GameState) => {
-      this.gameState = gameState;
-    }, localStorageGet(CACHED_ROOM_CODE));
+    this.barCompleteText = {} as Phaser.GameObjects.Text;
+    this.gameComplete = {} as Phaser.GameObjects.Text;
     this.wordCountBar = new MeterBar(this, () => {
-      console.log("bar full!");
+      fadeTextInWithParticles(this.barCompleteText, this);
     });
-    this.prescriptionMetaData = localStorageGet(
-      PRESCRIPTION_META_DATA_ID
-    ) as Prescription;
+    this.prescriptionMetaData = {} as Prescription;
+    this.currentlyHoveredWordPair = {
+      firstWord: "",
+      secondWord: "",
+      name: "",
+    };
+    this.roundManager = {} as RoundManager;
   }
 
   init() {
     const tempConfig: any = this.game.config;
     this.gameState = tempConfig.gameState;
+
+    connectToRoom((gameState: GameState) => {
+      if (gameState.sender === "validator") {
+        this.gameState = gameState;
+        this.scene.remove(WordEventModal.ID);
+      }
+    }, localStorageGet(CACHED_ROOM_CODE));
+
+    this.prescriptionMetaData = localStorageGet(
+      PRESCRIPTION_META_DATA_ID
+    ) as Prescription;
   }
 
   preload() {
@@ -51,52 +86,114 @@ export default class MainGame extends Phaser.Scene {
       "https://2.bp.blogspot.com/-3-bkBLwA_Bk/VaTNgW4XoEI/AAAAAAAAE_8/hHO-ZQz83OI/s1600/tile_grass_v01bs.png"
     );
 
-    this.load.image("detector", "https://placehold.co/96x96");
-    this.load.image("detector-detected", "https://placehold.co/100x100");
+    this.load.image(
+      "particle-purple",
+      "https://mhealthstorageaccount.blob.core.windows.net/image-store/particle-purple.png"
+    );
+
+    this.load.image(
+      "detector",
+      "https://mhealthstorageaccount.blob.core.windows.net/image-store/detector-nothing.png"
+    );
+    this.load.image(
+      "detector-detected",
+      "https://mhealthstorageaccount.blob.core.windows.net/image-store/detector-found.png"
+    );
     this.load.image("hidden-word", "https://placehold.co/32x32");
+
+    this.load.audio(
+      "bleep",
+      "https://mhealthstorageaccount.blob.core.windows.net/sound-store/bleep.mp4"
+    );
   }
 
-  create() {
+  async create() {
     const { width, height } = this.sys.game.canvas;
     this.add.tileSprite(0, 0, width, height, "background").setOrigin(0);
 
+    // this.sound.add("bleep");
+
+    this.barCompleteText = addCentreTextToScene(
+      this,
+      "Word Count Achieved!",
+      TitleStyles
+    ).setAlpha(0);
+    this.gameComplete = addCentreTextToScene(
+      this,
+      "Game Complete!",
+      TitleStyles
+    ).setAlpha(0);
+
     this.wordCountBar.create();
+    this.roundManager = new RoundManager(1, this);
+    this.roundManager.createRoundText();
+    this.roundManager.configureHiddenWords();
 
-    this.wordCount = addTextToScene(this, `0/3 words`, {}, 30, 20);
-    addTextToScene(this, "0/1 bonus", {}, 30, 50);
-
-    const scanButton = addTextToScene(this, "Scan", {}, width - 100, 50);
-    scanButton.on("pointerdown", () => {
+    const scanButton = addTextToScene(
+      this,
+      "Scan",
+      ButtonStyles,
+      width - 200,
+      20
+    );
+    scanButton.on("pointerdown", (e: any) => {
       if (this.isOverlapping()) {
         console.log("Found Word Pair!");
         this.gameState.childPlaying = false;
+        this.gameState.sender = "player";
         const roomCode = localStorageGet(CACHED_ROOM_CODE);
         updateState(roomCode, this.gameState);
+        createModal(
+          this,
+          this.currentlyHoveredWordPair.firstWord,
+          this.currentlyHoveredWordPair.secondWord
+        );
+        // TODO: Refactor below
+        const foundWord = this.roundManager.hiddenWords.getMatching(
+          "name",
+          this.currentlyHoveredWordPair.name
+        )[0];
+        this.roundManager.hiddenWords.remove(foundWord, true, true);
+        this.roundManager.foundWordPair();
       } else {
         console.log("Nothing here...");
       }
     });
 
     this.configureDetector();
-    this.configureHiddenWords(width, height);
-
-    this.physics.add.overlap(
-      this.detector,
-      this.hiddenWords,
-      (detector: any, hiddenWord: any) => {
-        this.timeOfOverlap = new Date().getSeconds();
-        this.detector.setTexture("detector-detected");
-      }
-    );
   }
 
   update(time: number, delta: number): void {
+    this.configureOverlapping();
     if (!this.isOverlapping()) {
       this.detector.setTexture("detector");
     }
     this.wordCountBar.setMeterPercentage(
       this.gameState.wordEventAttemptedWordCount /
         parseInt(this.prescriptionMetaData.sessionWordCount)
+    );
+    this.roundManager.renderRoundText();
+    this.roundManager.roundProgressCheck();
+
+    if (this.roundManager.isGameFinished() && this.gameState.childPlaying) {
+      if (!this.gameFinishedLock) {
+        fadeTextInWithParticles(this.gameComplete, this);
+      }
+      this.gameFinishedLock = true;
+      setTimeout(() => {
+        const gameCompleteState: GameCompletedState = {
+          isBonusAchieved: this.isWordCountAchieved(),
+        };
+        localStorageStore(GAME_COMPLETED_DATA, gameCompleteState);
+        navigateToNewScene(this, GameFinished.GAME_FINISHED_SCENE_ID);
+      }, 4000);
+    }
+  }
+
+  isWordCountAchieved(): boolean {
+    return (
+      this.gameState.wordEventAttemptedWordCount ===
+      parseInt(this.prescriptionMetaData.sessionWordCount)
     );
   }
 
@@ -114,14 +211,19 @@ export default class MainGame extends Phaser.Scene {
     });
   }
 
-  configureHiddenWords(width: number, height: number) {
-    this.hiddenWords = this.physics.add.group({
-      key: "hidden-word",
-      repeat: 1,
-      setXY: {
-        x: Math.random() * (width - 0) + 0,
-        y: Math.random() * (height - 0) + 0,
-      },
-    });
+  configureOverlapping() {
+    this.physics.add.overlap(
+      this.detector,
+      this.roundManager.hiddenWords,
+      (detector: any, hiddenWord: any) => {
+        this.timeOfOverlap = new Date().getSeconds();
+        this.detector.setTexture("detector-detected");
+        this.currentlyHoveredWordPair = {
+          firstWord: hiddenWord.getData(FIRST_WORD_VALUE),
+          secondWord: hiddenWord.getData(SECOND_WORD_VALUE),
+          name: hiddenWord.name,
+        };
+      }
+    );
   }
 }

@@ -9,7 +9,18 @@ export const ButtonStyles = {
   },
 };
 
+export const WordEventModalTextStyles = {
+  color: "#333333",
+  fontFamily: "Darumadrop One",
+  fontSize: 48,
+};
+
 export const TitleStyles = {
   fontFamily: "Darumadrop One",
   fontSize: 68,
+};
+
+export const SideTextStyles = {
+  fontFamily: "Darumadrop One",
+  fontSize: 24,
 };
