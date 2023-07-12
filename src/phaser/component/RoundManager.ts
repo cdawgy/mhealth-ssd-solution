@@ -95,11 +95,12 @@ class RoundManager {
     const secondWordPair = setOfPrescribedWords[Phaser.Math.Between(0, max)];
     const thirdWordPair = setOfPrescribedWords[Phaser.Math.Between(0, max)];
 
-    const randomWordPairSubSet = [firstWordPair, secondWordPair, thirdWordPair];
+    // const randomWordPairSubSet = [firstWordPair, secondWordPair, thirdWordPair];
+    const randomWordPairSubSet = [firstWordPair];
 
     const listOfHiddenWordGameObjects = randomWordPairSubSet.map((wordPair) => {
-      const x = Math.random() * (width - 0) + 0;
-      const y = Math.random() * (height - 0) + 0;
+      const x = Phaser.Math.Between(100, width);
+      const y = Phaser.Math.Between(100, height);
       const hiddenWordSprite = this.scene.physics.add.sprite(
         x,
         y,

@@ -25,6 +25,7 @@ import RoundManager from "./component/RoundManager";
 import { fadeTextInWithParticles } from "./utils/PopUpEmittedTextUtils";
 import GameFinished from "./GameFinished";
 import { GameCompletedState } from "../types/GameCompletedState";
+import SoundManager from "./component/SoundManager";
 
 export default class MainGame extends Phaser.Scene {
   public static MAIN_GAME_SCENE_ID = "maingame";
@@ -43,6 +44,7 @@ export default class MainGame extends Phaser.Scene {
   private barCompleteText: Phaser.GameObjects.Text;
   private gameComplete: Phaser.GameObjects.Text;
   private gameFinishedLock: boolean;
+  private soundManager: SoundManager;
 
   constructor() {
     super(MainGame.MAIN_GAME_SCENE_ID);
@@ -62,6 +64,7 @@ export default class MainGame extends Phaser.Scene {
       name: "",
     };
     this.roundManager = {} as RoundManager;
+    this.soundManager = {} as SoundManager;
   }
 
   init() {
@@ -102,16 +105,14 @@ export default class MainGame extends Phaser.Scene {
     this.load.image("hidden-word", "https://placehold.co/32x32");
 
     this.load.audio(
-      "bleep",
-      "https://mhealthstorageaccount.blob.core.windows.net/sound-store/bleep.mp4"
+      SoundManager.BLEEP_ID,
+      "https://mhealthstorageaccount.blob.core.windows.net/sound-store/bleep.mp3"
     );
   }
 
   async create() {
     const { width, height } = this.sys.game.canvas;
     this.add.tileSprite(0, 0, width, height, "background").setOrigin(0);
-
-    // this.sound.add("bleep");
 
     this.barCompleteText = addCentreTextToScene(
       this,
@@ -128,6 +129,9 @@ export default class MainGame extends Phaser.Scene {
     this.roundManager = new RoundManager(1, this);
     this.roundManager.createRoundText();
     this.roundManager.configureHiddenWords();
+
+    this.soundManager = new SoundManager(this, this.roundManager.hiddenWords);
+    this.soundManager.createSounds();
 
     const scanButton = addTextToScene(
       this,
@@ -188,6 +192,8 @@ export default class MainGame extends Phaser.Scene {
         navigateToNewScene(this, GameFinished.GAME_FINISHED_SCENE_ID);
       }, 4000);
     }
+
+    this.soundManager.calculateDistance(this.detector);
   }
 
   isWordCountAchieved(): boolean {
