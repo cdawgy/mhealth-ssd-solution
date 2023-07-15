@@ -32,7 +32,7 @@ export const config: Phaser.Types.Core.GameConfig | any = {
     default: "arcade",
     arcade: {
       gravity: { y: 0 },
-      debug: true,
+      debug: false,
     },
   },
   scene: [MainMenu, WordSelectMenu, PrescriptionsMenu, MainGame, GameFinished],

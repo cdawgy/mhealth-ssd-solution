@@ -31,14 +31,18 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
     const databaseSanitizedWordSet = this.state.wordPairs
       .map((wordPair) => `${wordPair.firstWordId}+${wordPair.secondWordId}`)
       .toString();
-    //TODO: Fix title
+    const dateOfPrescription = new Date().toLocaleDateString("en-GB", {
+      day: "numeric",
+      year: "numeric",
+      month: "numeric",
+    });
     const prescription: Prescription = {
       parentId: this.state.selectedChild,
       therapistId: localStorageGet(LOGGED_IN_TABLE_REFERENCE),
       sessionTime: this.state.sessionTime,
       sessionWordCount: this.state.wordAttempts,
       sessionWordSet: databaseSanitizedWordSet,
-      sessionWordSetTitle: "test",
+      sessionWordSetTitle: dateOfPrescription,
     };
 
     const status = await sendPrescriptionToDatabase(prescription);

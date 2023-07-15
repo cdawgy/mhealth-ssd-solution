@@ -75,6 +75,7 @@ export default class MainGame extends Phaser.Scene {
       if (gameState.sender === "validator") {
         this.gameState = gameState;
         this.scene.remove(WordEventModal.ID);
+        this.soundManager.isChildPlaying = gameState.childPlaying;
       }
     }, localStorageGet(CACHED_ROOM_CODE));
 
@@ -142,7 +143,6 @@ export default class MainGame extends Phaser.Scene {
     );
     scanButton.on("pointerdown", (e: any) => {
       if (this.isOverlapping()) {
-        console.log("Found Word Pair!");
         this.gameState.childPlaying = false;
         this.gameState.sender = "player";
         const roomCode = localStorageGet(CACHED_ROOM_CODE);
@@ -159,8 +159,7 @@ export default class MainGame extends Phaser.Scene {
         )[0];
         this.roundManager.hiddenWords.remove(foundWord, true, true);
         this.roundManager.foundWordPair();
-      } else {
-        console.log("Nothing here...");
+        this.soundManager.isChildPlaying = false;
       }
     });
 
@@ -178,6 +177,7 @@ export default class MainGame extends Phaser.Scene {
     );
     this.roundManager.renderRoundText();
     this.roundManager.roundProgressCheck();
+    this.soundManager.hiddenWords = this.roundManager.hiddenWords;
 
     if (this.roundManager.isGameFinished() && this.gameState.childPlaying) {
       if (!this.gameFinishedLock) {

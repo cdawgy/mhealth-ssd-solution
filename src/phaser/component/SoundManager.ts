@@ -5,15 +5,17 @@ class SoundManager {
     | Phaser.Sound.WebAudioSound
     | Phaser.Sound.NoAudioSound
     | Phaser.Sound.HTML5AudioSound;
-  private hiddenWords: Phaser.Physics.Arcade.Group;
+  public hiddenWords: Phaser.Physics.Arcade.Group;
   private timeFromLastBleep: number;
   private lastBleepTimeStamp: number;
+  public isChildPlaying: boolean;
   constructor(scene: Phaser.Scene, hiddenWords: Phaser.Physics.Arcade.Group) {
     this.scene = scene;
     this.bleep = {} as any;
     this.hiddenWords = hiddenWords;
     this.timeFromLastBleep = 0;
     this.lastBleepTimeStamp = Date.now();
+    this.isChildPlaying = true;
   }
 
   public createSounds(): void {
@@ -72,21 +74,29 @@ class SoundManager {
     detector: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
   ): void {
     const allWords: any = this.hiddenWords.getChildren();
-    const relativeX = (detector.x - allWords[0].x) * -1;
-    const relativeY = (detector.y - allWords[0].y) * -1;
-    // a^2 = b^2 + c^2
-    // a = root(relX^2 + relY^2)
-    const distanceFromDetectorToWord = this.getHypotenus(relativeX, relativeY);
+    const listOfRelativeDistances: number[] = [];
+    allWords.forEach((word: any) => {
+      listOfRelativeDistances.push(
+        this.calculateRelativeDistanceFromClosestWord(detector, word)
+      );
+    });
+    const closestValue = Math.min(...listOfRelativeDistances);
+    if (this.isChildPlaying) {
+      this.playBleepBasedOnDistance(closestValue);
+    }
+  }
 
+  private calculateRelativeDistanceFromClosestWord(
+    detector: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody,
+    wordObject: any
+  ): number {
+    const relativeX = (detector.x - wordObject.x) * -1;
+    const relativeY = (detector.y - wordObject.y) * -1;
+    const distanceFromDetectorToWord = this.getHypotenus(relativeX, relativeY);
     const { width, height } = this.scene.sys.game.canvas;
     const diagonalDistance = this.getHypotenus(height, width);
 
-    const relativeDistancePercentage = Math.floor(
-      (distanceFromDetectorToWord / diagonalDistance) * 100
-    );
-
-    // console.log(`Distance from word: ${relativeDistancePercentage}%`);
-    this.playBleepBasedOnDistance(relativeDistancePercentage);
+    return Math.floor((distanceFromDetectorToWord / diagonalDistance) * 100);
   }
 
   private getHypotenus(height: number, width: number): number {
