@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="70" height="70" viewBox="0 0 70 70">
+  <g id="Group_40" data-name="Group 40" transform="translate(-331 -205)">
+    <rect id="Rectangle_90" data-name="Rectangle 90" width="70" height="70" rx="10" transform="translate(331 205)" fill="#f4e04d"/>
+    <path id="plus-solid" d="M39.077,51.077a3.077,3.077,0,1,0-6.154,0V64.923H19.077a3.077,3.077,0,1,0,0,6.154H32.923V84.923a3.077,3.077,0,0,0,6.154,0V71.077H52.923a3.077,3.077,0,0,0,0-6.154H39.077Z" transform="translate(330 172)" fill="#fff"/>
+  </g>
+</svg>

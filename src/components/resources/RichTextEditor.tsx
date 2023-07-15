@@ -61,7 +61,7 @@ export default function Editor() {
         <ToolbarPlugin />
         <div className="editor-inner">
           <RichTextPlugin
-            contentEditable={<ContentEditable className="editor-input" />}
+            contentEditable={<ContentEditable className="editor-input" id="editor-input" />}
             placeholder={<Placeholder />}
             ErrorBoundary={LexicalErrorBoundary}
           />
@@ -75,7 +75,6 @@ export default function Editor() {
           <MarkdownShortcutPlugin transformers={TRANSFORMERS} />
         </div>
       </div>
-      <CreateResourceButton />
     </LexicalComposer>
   );
 }

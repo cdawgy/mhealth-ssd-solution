@@ -15,8 +15,6 @@ const MessageView = () => {
     readState: "",
   };
   const [message, setMessage] = useState(emptyMessage);
-
-  let { resourceId } = useParams();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -27,22 +25,26 @@ const MessageView = () => {
       );
       setMessage(fetchedMessage);
     })();
-  });
+  }, []);
 
   const redirectToResource = () => {
     navigate(`/resources/resource/${message.resourceId}`);
   };
 
+  const isResourceDefined: string = message.resourceId === 0 ? "none" : "flex";
   return (
     <div>
       <NavigationBar />
       <div className="guttering">
-        <h1 className="screen-title">Message view</h1>
-        <h2>Message:</h2>
+        <h1 className="screen-title">Message</h1>
         <p>{message.messageBody}</p>
-        <div onClick={redirectToResource} className="menu-item box-shadow">
+        <div
+          onClick={redirectToResource}
+          className="menu-item box-shadow"
+          style={{ display: isResourceDefined }}
+        >
           <img src={resourceIcon} alt="Resource Icon" />
-          <h3 className="title-font font-tilt">Resource</h3>
+          <h3 className="title-font font-tilt">Resource {message.resourceId}</h3>
         </div>
       </div>
     </div>

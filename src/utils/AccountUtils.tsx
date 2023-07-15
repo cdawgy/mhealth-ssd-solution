@@ -53,6 +53,14 @@ export const isTherapist = (): boolean => {
   return localStorageGet(ACCOUNT_TYPE) === "therapist";
 };
 
+export const isParent = (): boolean => {
+  return localStorageGet(ACCOUNT_TYPE) === "parent";
+};
+
+export const isChild = (): boolean => {
+  return localStorageGet(ACCOUNT_TYPE) === "child";
+};
+
 export const createAccount = async (
   accountData: NewAccount
 ): Promise<AxiosResponse> => {
@@ -94,4 +102,17 @@ export const createSelectOptionsForTherapist = async (): Promise<
       value: `${therapist.id}`,
     };
   });
+};
+
+export const getChildPoints = async (): Promise<number> => {
+  const accountId = localStorageGet(ACCOUNT_ID);
+  const resp: AxiosResponse<number> = await axios.get(
+    `${getBaseUrl()}/account/points/${accountId}`,
+    {
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+      },
+    }
+  );
+  return resp.data;
 };

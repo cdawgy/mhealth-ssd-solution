@@ -8,7 +8,7 @@ export const getBaseUrl = () => {
 };
 
 const baseUrls = {
-  local: "http://localhost:8081",
+  local: "http://192.168.0.19:8081",
   dev: "https://m-health-backend.politetree-6caa3509.uksouth.azurecontainerapps.io/",
 };
 
