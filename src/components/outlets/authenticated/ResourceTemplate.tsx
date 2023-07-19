@@ -20,9 +20,15 @@ const ResourceTemplate = () => {
       const fetchedResource: Resource = await fetchResource(
         parseInt(renderSafeResourceId)
       );
-      setResource(fetchedResource);      
+      setResource(fetchedResource);
+      renderContentInDiv(fetchedResource);
     })();
-  },[]);
+  }, []);
+
+  const renderContentInDiv = (resource: Resource) => {
+    const containingDiv = document.getElementById("content");
+    if (containingDiv) containingDiv.innerHTML = resource.content;
+  };
 
   return (
     <motion.div
@@ -33,7 +39,7 @@ const ResourceTemplate = () => {
       <NavigationBar />
       <div className="guttering">
         <h1 className="screen-title">{resource.title}</h1>
-        <p>{resource.content}</p>
+        <div id="content"></div>
       </div>
     </motion.div>
   );

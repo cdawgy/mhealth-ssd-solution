@@ -33,8 +33,10 @@ class MessageForm extends React.Component<{}, state> {
       messageBody: this.state.messageBody,
     };
     const resp = await postMessageToServer(payload);
-    console.log(resp);
-    
+    if (resp.status === 200) {
+      alert("Message sent!");
+      document.location.reload();
+    }
   };
 
   messageBodyOnChange = (e: any) => {

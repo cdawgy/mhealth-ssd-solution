@@ -46,8 +46,8 @@ export const createResourceSelectOptions = async (): Promise<
 
 export const postMessageToServer = async (
   message: MessageForm
-): Promise<void> => {
-  await axios.post(`${getBaseUrl()}/message/new`, message, {
+): Promise<AxiosResponse> => {
+  return await axios.post(`${getBaseUrl()}/message/new`, message, {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },

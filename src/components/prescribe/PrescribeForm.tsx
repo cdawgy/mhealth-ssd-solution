@@ -9,17 +9,17 @@ import { Prescription } from "../../types/Prescription";
 import { localStorageGet } from "../../utils/LocalStorageUtils";
 import { LOGGED_IN_TABLE_REFERENCE } from "../../constants/LocalStorageConstants";
 import { sendPrescriptionToDatabase } from "../../utils/PrescribeUtils";
-
+const emptyState = {
+  selectedChild: "",
+  sessionTime: "",
+  wordAttempts: "",
+  wordPairs: [],
+  wordView: "c",
+};
 class PrescribeForm extends React.Component<{}, PrescribeFormState> {
   constructor(props: any) {
     super(props);
-    this.state = {
-      selectedChild: "",
-      sessionTime: "",
-      wordAttempts: "",
-      wordPairs: [],
-      wordView: "c",
-    };
+    this.state = emptyState;
     this.stateHandler = this.stateHandler.bind(this);
   }
 
@@ -48,6 +48,7 @@ class PrescribeForm extends React.Component<{}, PrescribeFormState> {
     const status = await sendPrescriptionToDatabase(prescription);
     if (status === 200) {
       alert("Prescribed");
+      document.location.reload();
     }
   };
 
