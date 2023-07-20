@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">59.09% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>13/22</span>
+                <span class='fraction'>22/22</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">16.66% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>1/6</span>
+                <span class='fraction'>6/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.94% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>9/17</span>
+                <span class='fraction'>17/17</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -150,11 +150,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -166,19 +164,21 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import axios, { AxiosResponse } from "axios";
@@ -207,11 +207,11 @@ export const fetchAwards = async (): Promise&lt;Map&lt;string, Award[]&gt;&gt; =
 };
 &nbsp;
 // TODO: Add in the parents accound ID to post request so it can be tethered to the account
-export const createAward = <span class="fstat-no" title="function not covered" >async (</span>
+export const createAward = async (
   awardTitle: string,
-  awardPoints: number<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span>
+  awardPoints: number
 ): Promise&lt;number&gt; =&gt; {
-  const <span class="cstat-no" title="statement not covered" >resp: AxiosResponse = <span class="cstat-no" title="statement not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >await axios.post(</span></span></span>
+  const resp: AxiosResponse = await axios.post(
     `${getBaseUrl()}/account/awards/create`,
     {
       parentId: localStorageGet(LOGGED_IN_TABLE_REFERENCE),
@@ -225,19 +225,19 @@ export const createAward = <span class="fstat-no" title="function not covered" >
     }
   );
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return resp.status;</span>
+  return resp.status;
 };
 &nbsp;
-export const determineRowColours = <span class="fstat-no" title="function not covered" >(a</span>wardCost: number): tableRowColours =&gt; {
-<span class="cstat-no" title="statement not covered" >  switch (awardCost) {</span>
+export const determineRowColours = (awardCost: number): tableRowColours =&gt; {
+  switch (awardCost) {
     case 7:
-<span class="cstat-no" title="statement not covered" >      return { primaryColour: "#FA93FC", secondaryColour: "#BA6EBC" };</span>
+      return { primaryColour: "#FA93FC", secondaryColour: "#BA6EBC" };
     case 5:
-<span class="cstat-no" title="statement not covered" >      return { primaryColour: "#34E1FA", secondaryColour: "#63BCFC" };</span>
+      return { primaryColour: "#34E1FA", secondaryColour: "#63BCFC" };
     case 3:
-<span class="cstat-no" title="statement not covered" >      return { primaryColour: "#34FA4B", secondaryColour: "#26AA35" };</span>
+      return { primaryColour: "#34FA4B", secondaryColour: "#26AA35" };
     default:
-<span class="cstat-no" title="statement not covered" >      return { primaryColour: "#FA93FC", secondaryColour: "#BA6EBC" };</span>
+      return { primaryColour: "#FA93FC", secondaryColour: "#BA6EBC" };
   }
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -247,7 +247,7 @@ export const determineRowColours = <span class="fstat-no" title="function not co
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2023-07-19T21:31:07.473Z
+                at 2023-07-20T21:01:52.498Z
             </div>
         <script src="../prettify.js"></script>
         <script>
