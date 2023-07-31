@@ -1,6 +1,5 @@
 import starIcon from "../../assets/star-icon.svg";
 import { tableRowColours } from "../../types/TableRowColours";
-import { determineRowColours } from "../../utils/AwardUtils";
 type headerProps = {
   awardCost: number;
   colours: tableRowColours

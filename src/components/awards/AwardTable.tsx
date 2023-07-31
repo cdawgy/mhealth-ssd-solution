@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { fetchAwards } from "../../utils/AwardUtils";
 import AwardTableRow from "./AwardTableRow";
-import { GroupedAwards } from "../../types/GroupedAwards";
 import "../../css/components/awards/AwardTable.css";
 import { Award } from "../../types/Award";
 

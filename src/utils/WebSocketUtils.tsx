@@ -13,9 +13,9 @@ export const connectToRoom = (
     const room: number = roomCode
       ? roomCode
       : Math.floor(Math.random() * 90000) + 10000;
-    //   let socket = new SockJS(`${getBaseUrl()}/gs-guide-websocket`);
+    // let socket = new SockJS(`${getBaseUrl()}/gs-guide-websocket`);
     // Below url uses mac IP address, this is to allow connections to be established on other devices
-    let socket = new SockJS(`http://192.168.0.19:8081/game-session`);
+    let socket = new SockJS(`${getBaseUrl()}/game-session`);
     stompClient = Stomp.over(socket);
     stompClient.connect(
       {

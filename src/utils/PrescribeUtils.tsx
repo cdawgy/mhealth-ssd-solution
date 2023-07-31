@@ -27,18 +27,6 @@ export const createChildSelectOptions = async (): Promise<SelectOption[]> => {
   });
 };
 
-const getListOfWordPairs = async (): Promise<WordPair[]> => {
-  const resp: AxiosResponse = await axios.get(
-    `${getBaseUrl()}/game/wordPairs`,
-    {
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-      },
-    }
-  );
-  return resp.data;
-};
-
 export const sendPrescriptionToDatabase = async (
   prescription: Prescription
 ): Promise<number> => {
