@@ -20,6 +20,8 @@ import MessageView from "../outlets/authenticated/MessageView";
 import GamePlay from "../outlets/authenticated/GamePlay";
 import ValidatorScreen from "../outlets/ValidatorScreen";
 import Game from "../outlets/authenticated/Game";
+import Marketplace from "../outlets/authenticated/Marketplace";
+import BubbleBlabber from "../../marketplace/BubbleBlabber";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -56,6 +58,8 @@ const AnimatedRoutes = () => {
             path="game/validator/:roomCode"
             element={<ValidatorScreen />}
           />
+          <Route path="marketplace" element={<Marketplace />} />
+          <Route path="marketplace/bubble-blabber" element={<BubbleBlabber />} />
         </Route>
       </Routes>
     </AnimatePresence>

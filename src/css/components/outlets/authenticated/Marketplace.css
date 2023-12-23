@@ -1,0 +1,19 @@
+.game-option {
+    box-shadow: rgba(119, 119, 119, 0.16) 0px 0px 5px 4px !important;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.game-pic {
+    background-size: contain;
+    background-position: center;
+    border-radius: 5px 0px 0px 5px;
+}
+
+.game-title {
+    font-family: "Darumadrop One";
+    color: #333333;
+    font-size: 32px !important;
+    margin: auto;
+    padding: 30px 20px;
+}
