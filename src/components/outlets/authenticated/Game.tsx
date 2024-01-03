@@ -37,7 +37,7 @@ const Game = () => {
     if (gameState.validatorConnected) {
       localStorageStore(CACHED_GAME_STATE, gameState);
       disconnectFromRoom();
-      navigate("/game/play");
+      navigate("/metal-muncher/play");
     }
   };
 

@@ -20,6 +20,9 @@ import MessageView from "../outlets/authenticated/MessageView";
 import GamePlay from "../outlets/authenticated/GamePlay";
 import ValidatorScreen from "../outlets/ValidatorScreen";
 import Game from "../outlets/authenticated/Game";
+import Marketplace from "../outlets/authenticated/Marketplace";
+import BubbleBlabberMenu from "../outlets/authenticated/BubbleBlabberMenu";
+import BubbleBlabberGame from "../outlets/authenticated/BubbleBlabberGame";
 
 const AnimatedRoutes = () => {
   const location = useLocation();
@@ -50,8 +53,11 @@ const AnimatedRoutes = () => {
           <Route path="messages/message/:messageId" element={<MessageView />} />
           <Route path="awards" element={<Awards />} />
           <Route path="awards/newAward" element={<CreateAward />} />
-          <Route path="game" element={<Game />} />
-          <Route path="game/play" element={<GamePlay />} />
+          <Route path="marketplace" element={<Marketplace />} />
+          <Route path="marketplace/metal-muncher" element={<Game />} />
+          <Route path="marketplace/metal-muncher/play" element={<GamePlay />} />
+          <Route path="marketplace/bubble-blabber" element={<BubbleBlabberMenu />} />
+          <Route path="marketplace/bubble-blabber/game" element={<BubbleBlabberGame />} />
           <Route
             path="game/validator/:roomCode"
             element={<ValidatorScreen />}

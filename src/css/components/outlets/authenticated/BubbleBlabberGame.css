@@ -1,0 +1,70 @@
+.container {
+  background: url("../../../../assets/bubble-blaber/bg.png");
+  height: 100vh;
+}
+
+.game-title {
+  color: #3d9cb0;
+}
+
+.game-button {
+  background: #ffffff;
+  background-image: url("../../../../assets/bubble-blaber/button-corner.png");
+  background-position: bottom left;
+  background-repeat: no-repeat;
+  border-radius: 10px;
+  padding: 20px 30px;
+  font-family: "Darumadrop One";
+  color: #3d9cb0;
+  font-size: 48px;
+  text-align: center;
+}
+
+/* Game */
+
+.bubble-container {
+  display: flex;
+}
+
+.bubble {
+  background-image: url("../../../../assets/bubble-blaber/bubble-button.png");
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  padding: 30px;
+  position: absolute;
+}
+
+.bubble > p {
+  font-family: "Darumadrop One";
+  color: #3d9cb0;
+  font-size: 32px;
+}
+
+.image {
+  background-position: center !important;
+  background-size: contain !important;
+  border-radius: 150px;
+  border: #b8eaf5 8px solid;
+  margin: auto;
+}
+
+.float {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float {
+  from,
+  to {
+    transform: translate(0, 3%);
+  }
+  25% {
+    transform: translate(-3%, 0);
+  }
+  50% {
+    transform: translate(0, -3%);
+  }
+  75% {
+    transform: translate(3%, 0);
+  }
+}
