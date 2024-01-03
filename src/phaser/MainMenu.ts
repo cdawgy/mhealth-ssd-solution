@@ -20,8 +20,8 @@ export default class MainMenu extends Phaser.Scene {
   }
 
   create() {
-    const voiceRecorder = new VoiceRecorder();
-    voiceRecorder.threadSafeInit();
+    // const voiceRecorder = new VoiceRecorder();
+    // voiceRecorder.threadSafeInit();
     const { width, height } = this.sys.game.canvas;
     this.add.tileSprite(0, 0, width, height, "background").setOrigin(0);
     addCentreTextToScene(this, "Metal Muncher", TitleStyles, 0, -100);
@@ -36,15 +36,15 @@ export default class MainMenu extends Phaser.Scene {
       exitGame(this);
     });
 
-    const stop = addCentreTextToScene(this, "stop", ButtonStyles, 200, 140);
-    stop.on("pointerdown", () => {
-      voiceRecorder.stopRecording();
-    });
+    // const stop = addCentreTextToScene(this, "stop", ButtonStyles, 200, 140);
+    // stop.on("pointerdown", () => {
+    //   voiceRecorder.stopRecording();
+    // });
 
-    const test = addCentreTextToScene(this, "start", ButtonStyles, 0, 140);
-    test.on("pointerdown", () => {
-      voiceRecorder.startRecording();
-    });
+    // const test = addCentreTextToScene(this, "start", ButtonStyles, 0, 140);
+    // test.on("pointerdown", () => {
+    //   voiceRecorder.startRecording();
+    // });
   }
 
   update(time: number, delta: number): void {}

@@ -1,24 +1,18 @@
-import WordSelectMenu from "./WordSelectMenu";
 import { ButtonStyles, SideTextStyles, TitleStyles } from "./GameStyles";
 import { addCentreTextToScene, addTextToScene } from "./utils/TextUtils";
-import { exitGame, navigateToNewScene } from "./utils/NavigationUtils";
+import { navigateToNewScene } from "./utils/NavigationUtils";
 import { localStorageGet, localStorageStore } from "../utils/LocalStorageUtils";
 import {
   CACHED_ROOM_CODE,
-  FIRST_WORD_IMAGE,
   FIRST_WORD_VALUE,
   GAME_COMPLETED_DATA,
   PRESCRIPTION_META_DATA_ID,
-  PRESCRIPTION_WORD_SET,
-  SECOND_WORD_IMAGE,
   SECOND_WORD_VALUE,
 } from "../constants/GameConstants";
 import { Prescription } from "../types/Prescription";
 import { GameState } from "../types/GameState";
 import { connectToRoom, updateState } from "../utils/WebSocketUtils";
 import MeterBar from "./component/MeterBar";
-import { fetchAllWordPairs } from "./utils/WordPairUtils";
-import { WordPairs } from "../types/WordPair";
 import { createModal } from "./utils/ModalUtils";
 import WordEventModal from "./component/WordEventModal";
 import RoundManager from "./component/RoundManager";
@@ -29,6 +23,7 @@ import SoundManager from "./component/SoundManager";
 
 export default class MainGame extends Phaser.Scene {
   public static MAIN_GAME_SCENE_ID = "maingame";
+  private NGROK_BASE_URL = "https://dd31-81-107-5-158.ngrok-free.app/";
   private timeOfOverlap: number;
   private detector: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody;
   private gameState: GameState;
@@ -92,23 +87,17 @@ export default class MainGame extends Phaser.Scene {
 
     this.load.image(
       "particle-purple",
-      "https://mhealthstorageaccount.blob.core.windows.net/image-store/particle-purple.png"
+      `${this.NGROK_BASE_URL}particle-purple.png`
     );
 
-    this.load.image(
-      "detector",
-      "https://mhealthstorageaccount.blob.core.windows.net/image-store/detector-nothing.png"
-    );
+    this.load.image("detector", `${this.NGROK_BASE_URL}detector-nothing.png`);
     this.load.image(
       "detector-detected",
-      "https://mhealthstorageaccount.blob.core.windows.net/image-store/detector-found.png"
+      `${this.NGROK_BASE_URL}detector-found.png`
     );
     this.load.image("hidden-word", "https://placehold.co/32x32");
 
-    this.load.audio(
-      SoundManager.BLEEP_ID,
-      "https://mhealthstorageaccount.blob.core.windows.net/sound-store/bleep.mp3"
-    );
+    this.load.audio(SoundManager.BLEEP_ID, `${this.NGROK_BASE_URL}bleep.mp3`);
   }
 
   async create() {

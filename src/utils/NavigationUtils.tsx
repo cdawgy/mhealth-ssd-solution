@@ -12,7 +12,7 @@ import { localStorageStore } from "./LocalStorageUtils";
 export const determineLoginRedirect = async (
   accountId: string
 ): Promise<string> => {
-  let redirectPath = "/NotFound";
+  let redirectPath = "/NotFound";  
   if (await isActiveAccount(accountId)) {
     const accountType: string = await retrieveAccountType(accountId);
     const accountTableIdReference: number = await getAccountTableIdReference(

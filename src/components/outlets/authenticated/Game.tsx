@@ -18,7 +18,7 @@ import {
 } from "../../../constants/GameConstants";
 
 const Game = () => {
-  const BASE_ROOM_URL = "http://192.168.0.19:3000/game/validator/";
+  const BASE_ROOM_URL = "https://dd31-81-107-5-158.ngrok-free.app/game/validator/";
   const navigate = useNavigate();
   const [roomCode, setRoomCode] = useState("");
   let hasConnected = false;

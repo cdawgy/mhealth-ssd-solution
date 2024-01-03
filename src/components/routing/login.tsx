@@ -20,16 +20,24 @@ function Login() {
   const navigate = useNavigate();
 
   const onSuccess = async (res: any) => {
+    console.log("Successful Login!");
+    
+    console.log("Storing data...");
+    
     localStorageStore(LOGIN_TOKEN, res.tokenObj);
     localStorageStore(ACCOUNT_META_DATA, res.profileObj);
+    console.log("Storing complete.");
 
+    console.log("Retrieving Redirect Path...");
     const accountId: string = res.googleId;
     const redirectPath: string = await determineLoginRedirect(accountId);
+    console.log(`Redirect Path: ${redirectPath}`);
+    
     navigate(redirectPath);
   };
 
   const onFailure = (res: any) => {
-    console.log(`LOGIN FAILED! res: ${res}`);
+    console.log(`LOGIN FAILED! res: ${JSON.stringify(res)}`);
   };
 
   return (

@@ -34,11 +34,14 @@ export const getAccountTableIdReference = async (
 };
 
 export const isActiveAccount = async (googleId: string): Promise<boolean> => {
+  console.log("Checking if account is active...");
   const resp = await axios.get(`${getBaseUrl()}/account/${googleId}/active`, {
     headers: {
       "Access-Control-Allow-Origin": "*",
     },
   });
+  console.log("Account check complete.");
+  
   localStorageStore(ACCOUNT_ID, googleId);
   const isActiveAccount: boolean = resp.data;
   return isActiveAccount;

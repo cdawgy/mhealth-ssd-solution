@@ -56,19 +56,19 @@ export default class GameFinished extends Phaser.Scene {
       80
     );
     playButton.on("pointerdown", async () => {
-      const pointsToAdd = this.gameCompletedState.isBonusAchieved ? 2 : 1;
-      await axios.post(
-        `${getBaseUrl()}/account/points`,
-        {
-          accountId: localStorageGet(ACCOUNT_ID),
-          points: pointsToAdd,
-        },
-        {
-          headers: {
-            "Access-Control-Allow-Origin": "*",
-          },
-        }
-      );
+      // const pointsToAdd = this.gameCompletedState.isBonusAchieved ? 2 : 1;
+      // await axios.post(
+      //   `${getBaseUrl()}/account/points`,
+      //   {
+      //     accountId: localStorageGet(ACCOUNT_ID),
+      //     points: pointsToAdd,
+      //   },
+      //   {
+      //     headers: {
+      //       "Access-Control-Allow-Origin": "*",
+      //     },
+      //   }
+      // );
       this.scene.start(MainMenu.MAIN_MENU_SCENE_ID);
     });
   }
