@@ -1,4 +1,4 @@
-.container {
+.game-container {
   background: url("../../../../assets/bubble-blaber/bg.png");
   height: 100vh;
 }
@@ -33,6 +33,45 @@
   background-repeat: no-repeat;
   padding: 30px;
   position: absolute;
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+.pop {
+  animation: pop 1.5s ease-in-out forwards !important;
+}
+
+@keyframes reversePop {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: scale(0.8);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.show {
+  display: block !important;
+  animation: reversePop 0.5s ease-in-out forwards !important;
+}
+
+.hide {
+  display: none;
 }
 
 .bubble > p {

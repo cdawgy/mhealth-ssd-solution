@@ -12,7 +12,7 @@ const BubbleBlabberMenu = () => {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <div className="container">
+      <div className="game-container container">
         <Row>
           <Col xs={12}>
             <img src={title} />
@@ -27,7 +27,7 @@ const BubbleBlabberMenu = () => {
         </Row>
         <Row>
           <Col xs={12}>
-            <p className="game-button">Exit</p>
+            <p className="game-button" onClick={() => navigate("/marketplace")}>Exit</p>
           </Col>
         </Row>
       </div>
